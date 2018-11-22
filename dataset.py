@@ -5,7 +5,7 @@ from torchvision import transforms as tvtsf
 # from data import util
 import numpy as np
 from config import opt
-from torch.utils.data.Dataset import Dataset
+from torch.utils.data import Dataset
 
 class Transform(object):
     """
