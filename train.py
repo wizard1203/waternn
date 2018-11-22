@@ -4,7 +4,7 @@ import os
 import matplotlib
 import logging
 from config import opt
-from dataset import Dataset, TestDataset
+from dataset import TrainDataset, TestDataset
 from waternet import WaterNet
 from torch.utils import data as data_
 from trainer import WaterNetTrainer
@@ -80,7 +80,7 @@ def main_worker():
 
 
 
-    dataset = Dataset(opt)
+    dataset = TrainDataset(opt)
     print('load data')
     dataloader = data_.DataLoader(dataset, \
                                   batch_size=1, \
