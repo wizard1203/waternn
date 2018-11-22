@@ -6,9 +6,21 @@ import logging
 from config import opt
 from dataset import TrainDataset, TestDataset
 from waternet import WaterNet
-from torch.utils import data as data_
+
 from trainer import WaterNetTrainer
 from mymodels import MyModels as mymodels
+import torch
+import torch.nn as nn
+import torch.nn.parallel
+import torch.backends.cudnn as cudnn
+import torch.distributed as dist
+import torch.optim
+import torch.multiprocessing as mp
+from torch.utils import data as data_
+import torch.utils.data.distributed
+import torchvision.transforms as transforms
+import torchvision.datasets as datasets
+import torchvision.models as models
 # from utils import array_tool as at
 # from utils.vis_tool import visdom_bbox
 # from utils.eval_tool import eval_detection_voc
