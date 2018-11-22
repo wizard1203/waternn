@@ -13,16 +13,15 @@ from config import opt
 
 
 
-def get_optimizer():
+def get_optimizer(model):
     """
     return optimizer, It could be overwriten if you want to specify 
     special optimizer
     """
     lr = opt.lr
-    params = []
-    params += [{'lr': lr, 'weight_decay': opt.weight_decay}]
+    params = {'lr': lr, 'weight_decay': opt.weight_decay}
     if opt.use_adam:
-        optimizer = t.optim.Adam(params)
+        optimizer = t.optim.Adam(model, params)
     else:
-        optimizer = t.optim.SGD(params, momentum=0.9)
+        optimizer = t.optim.SGD(model, params, momentum=0.9)
     return optimizer 

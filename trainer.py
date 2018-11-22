@@ -26,7 +26,7 @@ class WaterNetTrainer(nn.Module):
         self.water_net = water_net
 
         # optimizer
-        self.optimizer = get_optimizer()
+        self.optimizer = get_optimizer(self.water_net)
 
         # visdom wrapper
         # self.vis = Visualizer(env=opt.env)
