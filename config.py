@@ -32,7 +32,7 @@ class Config:
     lr = 1e-3
 
     # record i-th log
-    kind = 0
+    kind = '0'
 
     # set gpu :
     # gpu = True
@@ -72,7 +72,7 @@ class Config:
         if opt.customize:
             logging_name = 'log' + '_self_' + opt.arch + '_'+ opt.optim + opt.kind + '.txt' 
         else:
-            logging_name = 'log' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + '.txt'
+            logging_name = 'log' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind) '.txt'
         if not os.path.exists('log'):
             os.mkdir('log')
 
