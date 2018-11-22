@@ -3,15 +3,15 @@ import os
 import numpy as np
 
 def read_sample(sample_file):
-        """Returns the sample_file.
+    """Returns the sample_file.
 
-        Args:
-            sample_file (file): The file of the sample.
+    Args:
+        sample_file (file): The file of the sample.
 
-        Returns:
-            a data sample
+    Returns:
+        a data sample
 
-        """ 
+    """ 
     with open(file, 'r') as f:
         lines = f.readlines()
 
@@ -20,6 +20,7 @@ def read_sample(sample_file):
         for line in lines[1:] :
             line = [float(item) for item in line.split(',')]
             datas.append(line)
+    f.close()        
     return label, datas
 
 class WaterDataset:
