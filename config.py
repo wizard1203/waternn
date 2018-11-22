@@ -85,7 +85,7 @@ class Config:
                         filemode='a',
                         format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s',
                         datefmt='%H:%M:%S')
-        logging.info('Logging for {}'.format(args.arch))
+        logging.info('Logging for {}'.format(opt.arch))
         logging.info('======user config========')
         logging.info(pformat(self._state_dict()))
         logging.info('==========end============')
