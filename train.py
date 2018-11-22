@@ -6,7 +6,7 @@ import os
 import matplotlib
 
 from config import opt
-from data.dataset import Dataset, TestDataset
+from dataset import Dataset, TestDataset
 from waternet import WaterNet
 from torch.utils import data as data_
 from trainer import WaterNetTrainer

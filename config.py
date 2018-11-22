@@ -15,14 +15,15 @@ class Config:
     pretrained = None
 
     # architecture of network
-    customize = true
-    arch = waternet
+    customize = True
+    arch = 'waternet'
 
     train_num_workers = 8
     test_num_workers = 8
 
     # optimizers
-    optim = SGD
+    optim = 'SGD'
+    use_adam = False
 
     # param for optimizer
     # 0.0005 in origin paper but 0.0001 in tf-faster-rcnn
@@ -70,7 +71,8 @@ class Config:
         else:
             logging_name = 'log' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + '.txt'
         if not os.path.exists('log'):
-        os.mkdir('log')
+            os.mkdir('log')
+
         logging_path = os.path.join('log', logging_name) 
     
         logging.basicConfig(level=logging.DEBUG,

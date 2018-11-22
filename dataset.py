@@ -1,12 +1,12 @@
 from __future__ import  absolute_import
 from __future__ import  division
 import torch as t
-from data.water_dataset import WaterDataset
+from water_dataset import WaterDataset
 from skimage import transform as sktsf
 from torchvision import transforms as tvtsf
 from data import util
 import numpy as np
-from utils.config import opt
+from config import opt
 
 class Transform(object):
     """
