@@ -1,5 +1,6 @@
 from pprint import pprint
 from pprint import pformat
+import os
 # Default Configs for training
 # NOTE that, config items could be overwriten by passing argument through command line.
 # e.g. --voc-data-dir='./data/'
