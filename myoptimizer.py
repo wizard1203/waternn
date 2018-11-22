@@ -13,7 +13,7 @@ from config import opt
 
 
 
-def get_optimizer(self):
+def get_optimizer():
     """
     return optimizer, It could be overwriten if you want to specify 
     special optimizer
@@ -22,7 +22,7 @@ def get_optimizer(self):
     params = []
     params += [{'lr': lr, 'weight_decay': opt.weight_decay}]
     if opt.use_adam:
-        self.optimizer = t.optim.Adam(params)
+        optimizer = t.optim.Adam(params)
     else:
-        self.optimizer = t.optim.SGD(params, momentum=0.9)
-    return self.optimizer 
+        optimizer = t.optim.SGD(params, momentum=0.9)
+    return optimizer 
