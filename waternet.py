@@ -1,9 +1,8 @@
-from __future__ import  absolute_import
 import os
 from collections import namedtuple
 import time
 from torch.nn import functional as F
-
+import logging
 from torch import nn
 import torch as t
 # from utils import array_tool as at

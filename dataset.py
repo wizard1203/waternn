@@ -7,7 +7,7 @@ import numpy as np
 from config import opt
 from torch.utils.data import Dataset
 import os
-
+import logging
 class Transform(object):
     """
     transform the data

@@ -1,10 +1,8 @@
-from __future__ import  absolute_import
-
 import cupy as cp
 import os
 
 import matplotlib
-
+import logging
 from config import opt
 from dataset import Dataset, TestDataset
 from waternet import WaterNet
@@ -14,7 +12,7 @@ from mymodels import MyModels as mymodels
 # from utils import array_tool as at
 # from utils.vis_tool import visdom_bbox
 # from utils.eval_tool import eval_detection_voc
-
+import os
 import resource
 
 best_acc1 = 0
