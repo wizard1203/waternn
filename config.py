@@ -31,6 +31,9 @@ class Config:
     lr_decay = 0.1  # 1e-3 -> 1e-4
     lr = 1e-3
 
+    # record i-th log
+    kind = 0
+
     # set gpu :
     # gpu = True
 
@@ -49,7 +52,7 @@ class Config:
     evaluate = False
 
     # debug
-    debug_file = '/tmp/debugf'
+    # debug_file = '/tmp/debugf'
 
     test_num = 10000
     # model
