@@ -19,14 +19,11 @@ best_acc1 = 0
 
 def main(**kwargs):
     opt._parse(kwargs)
-
+    print(opt)
     # set path of saving log in opt._parse()
     # and save init info in opt._parse() too
     logging.debug('this is a logging debug message')
     main_worker()
-
-
-
 
 def validate(val_loader, model, criterion):
     batch_time = AverageMeter()
