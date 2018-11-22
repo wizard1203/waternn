@@ -30,7 +30,7 @@ class TrainDataset(Dataset):
     def __init__(self, config, split='train'):
         self.config = config
         self.db = WaterDataset(config.data_dir, split=split)
-        self.tsf = Transform(config.mean, config.std)
+        self.tsf = Transform(config.norm_mean, config.norm_std)
 
     def __getitem__(self, idx):
         label, datas = self.db.get_example(idx)
@@ -51,7 +51,7 @@ class TestDataset(Dataset):
     def __init__(self, config, split='test'):
         self.config = config
         self.db = WaterDataset(config.data_dir, split=split)
-        self.tsf = Transform(config.mean, config.std)
+        self.tsf = Transform(config.norm_mean, config.norm_std)
 
     def __getitem__(self, idx):
         label, datas = self.db.get_example(idx)

@@ -10,6 +10,7 @@ class Config:
     # data
     data_dir = ' '
 
+    # for transfomers
     norm_mean = 0.0
     norm_std = 1.0
 
