@@ -100,11 +100,11 @@ def main_worker():
                                        )
 
     if opt.pretrained:
-        print("=> using pre-trained model '{}'".format(args.arch))
-        model = models.__dict__[args.arch](pretrained=True)
+        print("=> using pre-trained model '{}'".format(opt.arch))
+        model = models.__dict__[opt.arch](pretrained=True)
     else:
         print("=> creating model '{}'".format(opt.arch))
-        if args.customize:
+        if opt.customize:
             print("=> self-defined model '{}'".format(opt.arch))
             model = mymodels.__dict__[opt.arch]
         else:
@@ -132,7 +132,7 @@ def main_worker():
         train(train_loader, epoch)
 
         # evaluate on validation set
-        acc1 = validate(val_loader, model, criterion, args)
+        acc1 = validate(val_loader, model, criterion)
 
 
         # best_path = trainer.save(best_map=best_map)
