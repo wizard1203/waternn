@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 import logging
-def read_sample(sample_file):
+def read_sample(sample_file_path):
     """Returns the sample_file.
 
     Args:
@@ -12,7 +12,7 @@ def read_sample(sample_file):
         a data sample
 
     """ 
-    with open(sample_file, 'r') as f:
+    with open(sample_file_path, 'r') as f:
         lines = f.readlines()
 
         label = int(float(lines[0].split(',')[0].strip()))
@@ -49,7 +49,7 @@ class WaterDataset:
         # Load a sample
         sample_file = self.list_file[i]
 
-        label, datas = read_sample(sample_file)
+        label, datas = read_sample(os.path.join(data_dir, sample_file))
 
         return label, datas
 
