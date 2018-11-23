@@ -87,11 +87,11 @@ class WaterNetConvFC(nn.Module):
     def __init__(self):
         super(WaterNetConvFC, self).__init__()
         self.conv1 = nn.Conv2d(1, 10, kernel_size=1)
-        self.conv2 = nn.Conv2d(10, 10, kernel_size=2)
-        self.conv3 = nn.Conv2d(10, 5, kernel_size=2)
-        self.fc1 = nn.Linear(3840, 500)
-        self.fc2 = nn.Linear(500, 80)
-        self.fc3 = nn.Linear(80, 17)
+        self.conv2 = nn.Conv2d(10, 100, kernel_size=2)
+        self.conv3 = nn.Conv2d(100, 5, kernel_size=2)
+        self.fc1 = nn.Linear(940, 250)
+        self.fc2 = nn.Linear(250, 60)
+        self.fc3 = nn.Linear(60, 17)
 
     def forward(self, x):
         x = F.tanh(self.conv1(x))
