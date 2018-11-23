@@ -29,10 +29,10 @@ class Config:
     use_adam = False
 
     # param for optimizer
-    # 0.0005 in origin paper but 0.0001 in tf-faster-rcnn
+    lr = 0.001
     weight_decay = 0.0005
-    lr_decay = 0.1  # 1e-3 -> 1e-4
-    lr = 1e-3
+    lr_decay = 0.0001  # 1e-3 -> 1e-4
+
 
     # record i-th log
     kind = '0'
