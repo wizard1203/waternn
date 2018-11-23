@@ -125,7 +125,7 @@ def main_worker():
             model = models.__dict__[opt.arch]()
 
 
-    mode.apply(weights_init)
+    model.apply(weights_init)
     print('model construct completed')
     trainer = WaterNetTrainer(model).cuda()
 
