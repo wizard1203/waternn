@@ -16,9 +16,9 @@ class WaterNet(nn.Module):
     def __init__(self):
         super(WaterNet, self).__init__()
         self.conv1 = nn.Conv2d(1, 2, kernel_size=1)
-        self.fc1 = nn.Linear(768, 250)
-        self.fc2 = nn.Linear(100, 40)
-        self.fc3 = nn.Linear(40, 17)
+        self.fc1 = nn.Linear(768, 200)
+        self.fc2 = nn.Linear(200, 50)
+        self.fc3 = nn.Linear(50, 17)
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
