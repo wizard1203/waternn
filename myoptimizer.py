@@ -19,7 +19,8 @@ def get_optimizer(model):
     special optimizer
     """
     lr = opt.lr
-    params = {'lr': lr, 'weight_decay': opt.weight_decay}
+    params = []
+    params += [{'lr': lr, 'weight_decay': opt.weight_decay}]
     if opt.use_adam:
         optimizer = t.optim.Adam(model.parameters(), params)
     else:
