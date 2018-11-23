@@ -143,7 +143,7 @@ def main_worker():
 
     for epoch in range(opt.epoch):
         #trainer.reset_meters()
-        train(train_dataloader, epoch)
+        train(train_dataloader, trainer, epoch)
 
         # evaluate on validation set
         acc1 = validate(test_dataloader, model, criterion)
@@ -159,7 +159,7 @@ def main_worker():
 
 
 
-def train(train_loader, epoch):
+def train(train_loader, trainer, epoch):
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = AverageMeter()
@@ -168,7 +168,7 @@ def train(train_loader, epoch):
 
     # switch to train mode
     # model.train()
-    
+
     end = time.time()
     for ii, (label_, datas_) in enumerate(train_loader):
         # measure data loading time
