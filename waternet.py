@@ -28,7 +28,7 @@ class WaterNet(nn.Module):
         x = F.relu(self.fc1(x))
         x = F.dropout(x, training=self.training)
         x = self.fc2(x)
-        print('=======after fc ======{}===='.format(x))
+        # print('=======after fc ======{}===='.format(x))
         return F.log_softmax(x, dim=1)
 
     def get_optimizer(self):

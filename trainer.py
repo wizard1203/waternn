@@ -48,9 +48,9 @@ class WaterNetTrainer(nn.Module):
 
         self.optimizer.zero_grad()
         pred = self.forward(datas)
-        print('=======after forward ======pred:{}===='.format(pred))
+        # print('=======after forward ======pred:{}===='.format(pred))
         loss = F.nll_loss(pred, label)
-        print('=======after cul loss ======loss:{}===='.format(loss))
+        # print('=======after cul loss ======loss:{}===='.format(loss))
         loss.backward()
         self.optimizer.step()
 
