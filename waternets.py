@@ -97,7 +97,7 @@ class WaterNetConvFC(nn.Module):
         x = F.tanh(self.conv1(x))
         x = F.relu(self.conv2(x))
         x = F.relu(self.conv3(x))
-        x = x.view(-1, 3840)
+        x = x.view(-1, 940)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = F.dropout(x, training=self.training)
