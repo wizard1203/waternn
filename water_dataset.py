@@ -31,7 +31,7 @@ class WaterDataset:
             split:
         
         """
-        self.data_dir = os.path.join(self.data_dir, split)
+        self.data_dir = os.path.join(data_dir, split)
         self.list_file = os.listdir(self.data_dir)
 
     def __len__(self):
