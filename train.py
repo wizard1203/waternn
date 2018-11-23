@@ -176,7 +176,7 @@ def train(train_loader, trainer, epoch):
 
         datas, label = datas_.cuda().float(), label_.cuda()
         trainloss, output = trainer.train_step(label, datas)
-        print('==========output=======[{}]===='.format(output))
+        # print('==========output=======[{}]===='.format(output))
         # measure accuracy and record loss
         acc1, acc5 = accuracy(output, label, topk=(1, 5))
         losses.update(trainloss.item(), datas.size(0))

@@ -31,7 +31,7 @@ class WaterNetTrainer(nn.Module):
         # visdom wrapper
         # self.vis = Visualizer(env=opt.env)
 
-    def forward(self, labels, datas):
+    def forward(self, datas):
         """
 
         Args:
@@ -47,8 +47,10 @@ class WaterNetTrainer(nn.Module):
         self.water_net.train()
 
         self.optimizer.zero_grad()
-        pred = self.forward(label, datas)
+        pred = self.forward(datas)
+        print('=======after forward ======pred:{}===='.format(pred))
         loss = F.nll_loss(pred, label)
+        print('=======after cul loss ======loss:{}===='.format(loss))
         loss.backward()
         self.optimizer.step()
 
