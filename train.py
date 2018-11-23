@@ -92,9 +92,9 @@ def main_worker():
 
 
 
-    dataset = TrainDataset(opt)
+    trainset = TrainDataset(opt)
     print('load data')
-    dataloader = data_.DataLoader(dataset, \
+    train_dataloader = data_.DataLoader(trainset, \
                                   batch_size=1, \
                                   shuffle=False, \
                                   # pin_memory=True,
@@ -133,15 +133,15 @@ def main_worker():
     lr_ = opt.lr
 
     if opt.evaluate:
-        validate(val_loader, model, criterion)
+        validate(test_dataloader, model, criterion)
         return
 
     for epoch in range(opt.epoch):
         #trainer.reset_meters()
-        train(train_loader, epoch)
+        train(train_dataloader, epoch)
 
         # evaluate on validation set
-        acc1 = validate(val_loader, model, criterion)
+        acc1 = validate(test_dataloader, model, criterion)
 
 
         # best_path = trainer.save(best_map=best_map)
@@ -173,7 +173,7 @@ def train(train_loader, epoch):
 
         # measure accuracy and record loss
         acc1, acc5 = accuracy(output, label, topk=(1, 5))
-        losses.update(loss.item(), datas.size(0))
+        losses.update(trainloss.item(), datas.size(0))
         top1.update(acc1[0], datas.size(0))
         top5.update(acc5[0], datas.size(0))
 
