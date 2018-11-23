@@ -243,9 +243,13 @@ class AverageMeter(object):
 
 def weights_init(m):
     """ init weights of net   """
-    nn.init.normal_(m.weight.data, mean=0, std=1)
-    nn.init.normal_(m.bias.data, mean=0, std=1)
-
+    if isinstance(m, nn.Linear): 
+        nn.init.normal_(m.weight.data, mean=0, std=1)
+        nn.init.normal_(m.bias.data, mean=0, std=1)
+    if isinstance(m, nn.Conv2d): 
+        nn.init.normal_(m.weight.data, mean=0, std=1)
+        nn.init.normal_(m.bias.data, mean=0, std=1)
+        
 if __name__ == '__main__':
     import fire
     fire.Fire()
