@@ -18,11 +18,10 @@ def get_optimizer(model):
     return optimizer, It could be overwriten if you want to specify 
     special optimizer
     """
-    lr = opt.lr
-    params = []
-    params += [{'lr': lr, 'weight_decay': opt.weight_decay}]
     if opt.use_adam:
-        optimizer = t.optim.Adam(model.parameters(), params)
+        optimizer = t.optim.Adam(model.parameters(), 
+            lr = opt.lr, weight_decay = opt.weight_decay)
     else:
-        optimizer = t.optim.SGD(model.parameters(), params, momentum=0.9)
+        optimizer = t.optim.SGD(model.parameters(), 
+            lr = opt.lr, weight_decay = opt.weight_decay, momentum=0.9)
     return optimizer 
