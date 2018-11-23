@@ -12,7 +12,7 @@ def read_sample(sample_file):
         a data sample
 
     """ 
-    with open(file, 'r') as f:
+    with open(sample_file, 'r') as f:
         lines = f.readlines()
 
         label = int(float(lines[0].split(',')[0].strip()))
