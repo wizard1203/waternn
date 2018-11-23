@@ -34,7 +34,7 @@ class WaterDataset:
         self.list_file = os.listdir(os.path.join(data_dir, split))
 
     def __len__(self):
-        return len(self.id_list_file)
+        return len(self.list_file)
 
     def get_example(self, i):
         """Returns the i-th sample.
