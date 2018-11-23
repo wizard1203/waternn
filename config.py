@@ -33,7 +33,6 @@ class Config:
     weight_decay = 0.00001
     lr_decay = 0.0001  # 1e-3 -> 1e-4
 
-
     # record i-th log
     kind = '0'
 

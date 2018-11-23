@@ -83,17 +83,21 @@ class WaterNetSmallFC(nn.Module):
             self.optimizer = t.optim.SGD(params, momentum=0.9)
         return self.optimizer 
 
-class WaterNet3(nn.Module):
+class WaterNetConvFC(nn.Module):
     def __init__(self):
-        super(WaterNet3, self).__init__()
-        self.conv1 = nn.Conv2d(1, 2, kernel_size=1)
-        self.fc1 = nn.Linear(768, 200)
-        self.fc2 = nn.Linear(200, 50)
-        self.fc3 = nn.Linear(50, 17)
+        super(WaterNetConvFC, self).__init__()
+        self.conv1 = nn.Conv2d(1, 10, kernel_size=1)
+        self.conv2 = nn.Conv2d(10, 10, kernel_size=2)
+        self.conv3 = nn.Conv2d(10, 5, kernel_size=2)
+        self.fc1 = nn.Linear(3840, 500)
+        self.fc2 = nn.Linear(500, 80)
+        self.fc3 = nn.Linear(80, 17)
 
     def forward(self, x):
-        x = F.relu(self.conv1(x))
-        x = x.view(-1, 768)
+        x = F.tanh(self.conv1(x))
+        x = F.relu(self.conv2(x))
+        x = F.relu(self.conv2(x))
+        x = x.view(-1, 3840)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = F.dropout(x, training=self.training)
