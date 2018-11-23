@@ -1,6 +1,12 @@
 import cupy as cp
+import argparse
 import os
-
+import random
+import shutil
+import time
+import warnings
+import sys
+import logging
 import matplotlib
 import logging
 from config import opt
@@ -24,8 +30,7 @@ import torchvision.models as models
 # from utils import array_tool as at
 # from utils.vis_tool import visdom_bbox
 # from utils.eval_tool import eval_detection_voc
-import os
-import resource
+# import resource
 
 best_acc1 = 0
 
