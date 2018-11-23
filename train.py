@@ -168,7 +168,8 @@ def train(train_loader, epoch):
 
     # switch to train mode
     # model.train()
-
+    
+    end = time.time()
     for ii, (label_, datas_) in enumerate(train_loader):
         # measure data loading time
         data_time.update(time.time() - end)
