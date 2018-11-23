@@ -39,7 +39,7 @@ class WaterNetTrainer(nn.Module):
         Returns:
             
         """
-        pred = self.waternet(datas)
+        pred = self.water_net(datas)
         return pred
 
     def train_step(self, label, datas):
