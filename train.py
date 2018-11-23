@@ -124,8 +124,12 @@ def main_worker():
         else:
             model = models.__dict__[opt.arch]()
 
+
+    mode.apply(weights_init)
     print('model construct completed')
     trainer = WaterNetTrainer(model).cuda()
+
+
 
     if opt.load_path:
         trainer.load(opt.load_path)
@@ -236,6 +240,11 @@ class AverageMeter(object):
         self.count += n
         self.avg = self.sum / self.count
 
+
+def weights_init(m):
+    """ init weights of net   """
+    nn.init.normal_(tensor, mean=0, std=1)(m.weight.data)
+    nn.init.normal_(tensor, mean=0, std=1)(m.bias.data)
 
 if __name__ == '__main__':
     import fire
