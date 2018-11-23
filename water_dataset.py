@@ -31,7 +31,7 @@ class WaterDataset:
             split:
         
         """
-        self.id_list_file = os.listdir(os.path.join(data_dir, split))
+        self.list_file = os.listdir(os.path.join(data_dir, split))
 
     def __len__(self):
         return len(self.id_list_file)
@@ -47,7 +47,7 @@ class WaterDataset:
 
         """
         # Load a sample
-        sample_file = id_list_file[i]
+        sample_file = self.list_file[i]
 
         label, datas = read_sample(sample_file)
 
