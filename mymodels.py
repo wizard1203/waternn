@@ -1,5 +1,6 @@
-from waternet import WaterNet
+import waternets
 
 class MyModels:
 
-	waternet = WaterNet()
+	waternet = waternets.WaterNet()
+	waternetsf = waternets.WaterNetSmallFC()

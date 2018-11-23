@@ -10,7 +10,6 @@ import torch as t
 
 from config import opt
 from torchnet.meter import ConfusionMeter, AverageValueMeter
-from waternet import WaterNet
 from myoptimizer import get_optimizer
 
 class WaterNetTrainer(nn.Module):
