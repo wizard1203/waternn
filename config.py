@@ -29,8 +29,8 @@ class Config:
     use_adam = False
 
     # param for optimizer
-    lr = 0.001
-    weight_decay = 0.0005
+    lr = 0.015
+    weight_decay = 0.00001
     lr_decay = 0.0001  # 1e-3 -> 1e-4
 
 
