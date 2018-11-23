@@ -47,8 +47,8 @@ class WaterNetTrainer(nn.Module):
         self.water_net.train()
 
         self.optimizer.zero_grad()
-        pred = self.forward(labels, datas)
-        loss = F.nll_loss(pred, labels)
+        pred = self.forward(label, datas)
+        loss = F.nll_loss(pred, label)
         loss.backward()
         self.optimizer.step()
 
@@ -56,7 +56,7 @@ class WaterNetTrainer(nn.Module):
         # self.update_meters(losses)
         return loss, pred
 
-    def save(self, save_path=None):
+    def save(self, save_path=None, **kwargs):
         """serialize models include optimizer and other info
         return path where the model-file is stored.
 
@@ -71,13 +71,13 @@ class WaterNetTrainer(nn.Module):
         save_dict = dict()
 
         save_dict['model'] = self.water_net.state_dict()
-        save_dict['config'] = config._state_dict()
+        save_dict['config'] = opt._state_dict()
         # save_dict['vis_info'] = self.vis.state_dict()
         save_dict['optimizer'] = self.optimizer.state_dict()
 
         if save_path is None:
             timestr = time.strftime('%m%d%H%M')
-            save_path = 'checkpoints/fasterrcnn_%s' % timestr
+            save_path = 'checkpoints/waternn_%s' % timestr
             for k_, v_ in kwargs.items():
                 save_path += '_%s' % v_
 
@@ -89,7 +89,7 @@ class WaterNetTrainer(nn.Module):
         # self.vis.save([self.vis.env])
         return save_path
 
-    def load(self, path, load_optimizer=True, parse_opt=False, ):
+    def load(self, path, load_optimizer=True, parse_opt=False):
         state_dict = t.load(path)
         if 'model' in state_dict:
             self.faster_rcnn.load_state_dict(state_dict['model'])
