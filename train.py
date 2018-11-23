@@ -60,7 +60,7 @@ def validate(val_loader, model, criterion):
 
             # compute output
             target = target.cuda()
-            datas = datas.cuda()
+            datas = datas.cuda().float()
             output = model(datas)
             loss = criterion(output, target)
 
