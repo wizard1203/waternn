@@ -36,9 +36,9 @@ def makedatesets(file_name, start_num):
 
 	dframe = pd.read_excel(file_path)
 	for index, line in dframe.iterrows():
-		print(" new line =============\n")
-		print(line)
-		print(line[0], line[1], line[2], line[3])
+		# print(" new line =============\n")
+		# print(line)
+		# print(line[0], line[1], line[2], line[3])
 		line = [line[0], line[1], line[2], line[3]]
 		if operator.eq([int(intnum) for intnum in line ] ,[-1, -1, -1, -1]):
 			if len(item) > 0:

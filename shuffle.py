@@ -8,12 +8,20 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbosity", help="increase output verbosity")
 #parser.add_argument('-l', "--label", type=int, help="the num of labels")
 parser.add_argument("-p", "--path", type=str, help="path of files")
-tempf_path = 'preshuffle'
-train_path = 'train'
-test_path = 'test'
-	
+
+
 def datashuffle(args):
-	file_list = os.listdir(args.path)
+
+	tempf_path = 'preshuffle'
+	train_path = 'train'
+	test_path = 'test'
+
+	data_dir = os.path.join(args.path, 'orderd_data')
+	tempf_path = os.path.join(args.path, tempf_path)
+	train_path = os.path.join(args.path, train_path)
+	test_path = os.path.join(args.path, test_path)
+
+	file_list = os.listdir(data_dir)
 	length = len(file_list)
 	li=list(range(0, length))
 	random.shuffle(li)	
@@ -31,7 +39,7 @@ def datashuffle(args):
 		
 		tempfile_path = os.path.join(tempf_path, str(li[i]) + '.txt')
 	
-		pref = open(os.path.join(args.path, file), 'r')
+		pref = open(os.path.join(data_dir, file), 'r')
 		tempf = open(tempfile_path, 'w')
 		for line in pref:
 			tempf.write(line)
