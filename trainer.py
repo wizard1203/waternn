@@ -57,7 +57,12 @@ class WaterNetTrainer(nn.Module):
         # self.update_meters(losses)
         return loss, pred
 
-    def save(self, save_optimizer=False, save_path=None):
+    def scale_lr(self, decay=0.1):
+        for param_group in self.optimizer.param_groups:
+            param_group['lr'] *= decay
+        return self.optimizer
+
+    def save(self, save_optimizer=True, better = False, save_path=None):
         """serialize models include optimizer and other info
         return path where the model-file is stored.
 
@@ -81,13 +86,17 @@ class WaterNetTrainer(nn.Module):
 
         # if save_path is None:
         # save_path = 'checkpoints/waternetparams'
-        save_path = opt.save_path
-
-        if opt.customize:
-            save_name = 'model' + '_self_' + opt.arch + '_' + opt.optim + opt.kind + 'params.tar'
+        # save_path = opt.save_path
+        
+        if better :
+            save_path = 'cur_best_params'
         else:
-            save_name = 'model' + '_default_' + opt.arch + '_' + opt.optim + opt.kind + 'params.tar'
-        save_path = os.path.join(save_path, save_name)
+            # save_path = opt.save_path
+            if opt.customize:
+                save_name = 'model' + '_self_' + opt.arch + '_' + opt.optim + opt.kind + 'params.tar'
+            else:
+                save_name = 'model' + '_default_' + opt.arch + '_' + opt.optim + opt.kind + 'params.tar'
+            save_path = os.path.join(opt.save_path, save_name)
         print(save_path)
         save_dir = os.path.dirname(save_path)
         if not os.path.exists(save_dir):
@@ -97,11 +106,13 @@ class WaterNetTrainer(nn.Module):
         return save_path
 
     def load(self, path, load_optimizer=True, parse_opt=False):
-        if opt.customize:
-            load_name = 'model' + '_self_' + opt.arch + '_' + opt.optim + opt.kind + 'params.tar'
-        else:
-            load_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.tar'
-        state_dict = t.load(os.path.join(path, load_name))
+
+        # if opt.customize:
+        #     load_name = 'model' + '_self_' + opt.arch + '_' + opt.optim + opt.kind + 'params.tar'
+        # else:
+        #     load_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.tar'
+        # state_dict = t.load(os.path.join(path, load_name))
+        state_dict = t.load(path)
         if 'model' in state_dict:
             self.water_net.load_state_dict(state_dict['model'])
         else:  # legacy way, for backward compatibility

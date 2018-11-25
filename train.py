@@ -210,8 +210,23 @@ def main_worker():
         train(train_dataloader, trainer, epoch)
 
         # evaluate on validation set
-        validate(test_dataloader, model, criterion, seeout=False)
+        top1avr, _ = validate(test_dataloader, model, criterion, seeout=False)
 
+        if best_acc1 < top1avr:
+            best_acc1 = top1avr
+            print('===== * * *   best_acc1 :{} Update   ========\n'.format(best_acc1))
+            best_path = trainer.save(better=True)
+
+        if epoch == 2:
+            trainer.load(best_path)
+            trainer.scale_lr(opt.lr_decay)
+        if epoch == 4:
+            trainer.load(best_path)
+            trainer.scale_lr(opt.lr_decay)
+        if epoch == 6:
+            trainer.load(best_path)
+            trainer.scale_lr(opt.lr_decay)
+            
     validate(test_dataloader, model, criterion, seeout=True)
     trainer.save(save_optimizer=True, save_path=opt.save_path)
 
@@ -232,7 +247,6 @@ def train(train_loader, trainer, epoch):
 
     # switch to train mode
     # model.train()
-
     end = time.time()
     for ii, (label_, datas_) in enumerate(train_loader):
         # measure data loading time
@@ -249,10 +263,11 @@ def train(train_loader, trainer, epoch):
         top1.update(acc1[0], datas.size(0))
         top5.update(acc5[0], datas.size(0))
 
+            
         # measure elapsed time
         batch_time.update(time.time() - end)
         end = time.time()
-
+    
         if (ii + 1) % opt.plot_every == 0:
             print('Epoch: [{0}][{1}/{2}]\t'
                   'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
@@ -264,8 +279,8 @@ def train(train_loader, trainer, epoch):
                    data_time=data_time, loss=losses, top1=top1, top5=top5))
             logging.info(' train-----* ===Epoch: [{0}][{1}/{2}]\t Acc@1 {top1.avg:.3f} Acc@5 {top5.avg:.3f} Loss {loss.val:.4f}'
               .format(epoch, ii, len(train_loader), top1=top1, top5=top5, loss=losses))
-
-
+        
+    
 
 
 
