@@ -117,7 +117,7 @@ def validate(val_loader, model, criterion, seeout = False):
             if seeout:
                 writepred = pred5.tolist()
                 for item in writepred :
-                    outf.writelines(str(item) + str(target.item()) + '\r\n')
+                    outf.writelines(str(item) + str(target.tolist()) + '\r\n')
                     
             acc1 = acc[0]
             acc5 = acc[1]
