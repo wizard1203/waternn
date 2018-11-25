@@ -79,8 +79,8 @@ class WaterNetTrainer(nn.Module):
         if save_optimizer:
             save_dict['optimizer'] = self.optimizer.state_dict()
 
-        if save_path is None:
-            save_path = 'checkpoints/waternetparams'
+        #if save_path is None:
+        save_path = 'checkpoints/waternetparams'
             # save_path = opt.save_path
 
         # if opt.customize:
