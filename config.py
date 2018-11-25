@@ -60,7 +60,7 @@ class Config:
     test_num = 10000
     # model
     load_path = None
-    save_path = '/home/comp/zhtang/water/waternn/modelparams'
+    save_path = '/home/comp/zhtang/water/modelparams'
 
     
     def _parse(self, kwargs):

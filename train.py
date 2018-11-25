@@ -11,8 +11,7 @@ import matplotlib
 import logging
 from config import opt
 from dataset import TrainDataset, TestDataset
-from waternet import WaterNet
-
+import pprint
 from trainer import WaterNetTrainer
 from mymodels import MyModels as mymodels
 import torch
@@ -141,6 +140,10 @@ def validate(val_loader, model, criterion, seeout = False):
               .format(top1=top1, top5=top5))
         logging.info(' validate-----* Acc@1 {top1.avg:.3f} Acc@5 {top5.avg:.3f} Loss {loss.val:.4f}'
               .format(top1=top1, top5=top5, loss=losses))
+    if seeout:
+        outf.writelines('* Acc@1 {top1.avg:.3f} Acc@5 {top5.avg:.3f} Loss {loss.val:.4f}\r\n'
+                .format(top1=top1, top5=top5, loss=losses))
+        outf.writelines('config:{}\r\n'.format(pprint(opt)))
     outf.close()
     return top1.avg, top5.avg
 
@@ -204,9 +207,9 @@ def main_worker():
         train(train_dataloader, trainer, epoch)
 
         # evaluate on validation set
-        acc1 = validate(test_dataloader, model, criterion)
+        validate(test_dataloader, model, criterion, seeout=False)
 
-
+    validate(test_dataloader, model, criterion, seeout=True)
     trainer.save(save_optimizer=True, save_path=opt.save_path)
 
         # if epoch == 9:
