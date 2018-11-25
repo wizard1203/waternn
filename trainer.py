@@ -84,9 +84,9 @@ class WaterNetTrainer(nn.Module):
             save_path = opt.save_path
 
         if opt.customize:  
-            save_name = 'model' + '_self_' + opt.arch + '_'+ opt.optim + opt.kind + 'params.pth' 
+            save_name = 'model' + '_self_' + opt.arch + '_'+ opt.optim + opt.kind + 'params'
         else:
-            save_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.pth'
+            save_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params'
 
         save_dir = os.path.dirname(save_path)
         if not os.path.exists(save_dir):
