@@ -84,9 +84,9 @@ class WaterNetTrainer(nn.Module):
             save_path = opt.save_path
 
         if opt.customize:  
-            save_name = 'model' + '_self_' + opt.arch + '_'+ opt.optim + opt.kind + 'params'
+            save_name = 'model' + '_self_' + opt.arch + '_'+ opt.optim + opt.kind + 'params.pth.tar'
         else:
-            save_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params'
+            save_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.pth.tar'
 
         save_path = os.path.join(save_path, save_name)
         save_dir = os.path.dirname(save_path)
@@ -99,9 +99,9 @@ class WaterNetTrainer(nn.Module):
 
     def load(self, path, load_optimizer=True, parse_opt=False):
         if opt.customize:
-            load_name = 'model' + '_self_' + opt.arch + '_' + opt.optim + opt.kind + 'params.pth'
+            load_name = 'model' + '_self_' + opt.arch + '_' + opt.optim + opt.kind + 'params.pth.tar'
         else:
-            load_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.pth'
+            load_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.pth.tar'
         state_dict = t.load(os.path.join(path, load_name))
         if 'model' in state_dict:
             self.water_net.load_state_dict(state_dict['model'])
