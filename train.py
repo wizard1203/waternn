@@ -116,8 +116,8 @@ def validate(val_loader, model, criterion, seeout = False):
             acc, pred5 = accuracy(output, target, topk=(1, 5))
             if seeout:
                 writepred = pred5.tolist()
-                for item in writepred :
-                    outf.writelines(str(item) + str(target.tolist()) + '\r\n')
+                for i, item in enumerate(writepred) :
+                    outf.writelines(str(item) + ',' + str(target.tolist()[i]) + '\r\n')
                     
             acc1 = acc[0]
             acc5 = acc[1]
