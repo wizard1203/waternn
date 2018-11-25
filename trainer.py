@@ -84,24 +84,24 @@ class WaterNetTrainer(nn.Module):
             save_path = opt.save_path
 
         if opt.customize:  
-            save_name = 'model' + '_self_' + opt.arch + '_'+ opt.optim + opt.kind + 'params.pth.tar'
+            save_name = 'model' + '_self_' + opt.arch + '_'+ opt.optim + opt.kind + 'params.tar'
         else:
-            save_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.pth.tar'
+            save_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.tar'
 
         save_path = os.path.join(save_path, save_name)
+        print(save_path)
         save_dir = os.path.dirname(save_path)
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
-
         t.save(save_dict, save_path)
         # self.vis.save([self.vis.env])
         return save_path
 
     def load(self, path, load_optimizer=True, parse_opt=False):
         if opt.customize:
-            load_name = 'model' + '_self_' + opt.arch + '_' + opt.optim + opt.kind + 'params.pth.tar'
+            load_name = 'model' + '_self_' + opt.arch + '_' + opt.optim + opt.kind + 'params.tar'
         else:
-            load_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.pth.tar'
+            load_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.tar'
         state_dict = t.load(os.path.join(path, load_name))
         if 'model' in state_dict:
             self.water_net.load_state_dict(state_dict['model'])
