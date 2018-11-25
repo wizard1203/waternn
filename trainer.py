@@ -97,10 +97,11 @@ class WaterNetTrainer(nn.Module):
             else:
                 save_name = 'model' + '_default_' + opt.arch + '_' + opt.optim + opt.kind + 'params.tar'
             save_path = os.path.join(opt.save_path, save_name)
+            save_dir = os.path.dirname(save_path)
+            if not os.path.exists(save_dir):
+                os.makedirs(save_dir)
+                
         print(save_path)
-        save_dir = os.path.dirname(save_path)
-        if not os.path.exists(save_dir):
-            os.makedirs(save_dir)
         t.save(save_dict, save_path)
         # self.vis.save([self.vis.env])
         return save_path

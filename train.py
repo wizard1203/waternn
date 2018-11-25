@@ -228,7 +228,7 @@ def main_worker():
             trainer.scale_lr(opt.lr_decay)
             
     validate(test_dataloader, model, criterion, seeout=True)
-    trainer.save(save_optimizer=True, save_path=opt.save_path)
+    trainer.save(save_optimizer=True, better=False, save_path=opt.save_path)
 
         # if epoch == 9:
         #     trainer.load(best_path)
