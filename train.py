@@ -116,9 +116,9 @@ def validate(val_loader, model, criterion, seeout = False):
             acc, pred5 = accuracy(output, target, topk=(1, 5))
             if seeout:
                 writepred = pred5.tolist()
-                
-                writestr = ','.join([str(item) for item in writepred])
-                outf.writelines(writestr + '\r\n')
+                for item in writepred :
+                    outf.writelines(str(item) + str(target.item()) + '\r\n')
+                    
             acc1 = acc[0]
             acc5 = acc[1]
             losses.update(loss.item(), datas.size(0))
