@@ -116,6 +116,7 @@ def validate(val_loader, model, criterion, seeout = False):
             acc, pred5 = accuracy(output, target, topk=(1, 5))
             if seeout:
                 writepred = pred5.tolist()
+                
                 writestr = ','.join([str(item) for item in writepred])
                 outf.writelines(writestr + '\r\n')
             acc1 = acc[0]
@@ -275,8 +276,8 @@ def accuracy(output, target, topk=(1,)):
         batch_size = target.size(0)
         
         _, pred = output.topk(maxk, 1, True, True)
-        pred = pred.t()
-        correct = pred.eq(target.view(1, -1).expand_as(pred))
+        pred2 = pred.t()
+        correct = pred2.eq(target.view(1, -1).expand_as(pred2))
 
         res = []
         for k in topk:
