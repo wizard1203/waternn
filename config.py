@@ -9,6 +9,7 @@ import logging
 class Config:
     # data
     data_dir = ' '
+    out_pred_dir = '/home/zhtang/water/txt/'
 
     # for transfomers
     norm_mean = 0.0
@@ -59,6 +60,7 @@ class Config:
     test_num = 10000
     # model
     load_path = None
+    save_path = '/home/comp/zhtang/water/waternn/modelparams'
 
     
     def _parse(self, kwargs):

@@ -57,7 +57,7 @@ class WaterNetTrainer(nn.Module):
         # self.update_meters(losses)
         return loss, pred
 
-    def save(self, save_path=None, **kwargs):
+    def save(self, save_optimizer=False, save_path=None):
         """serialize models include optimizer and other info
         return path where the model-file is stored.
 
@@ -76,26 +76,36 @@ class WaterNetTrainer(nn.Module):
         # save_dict['vis_info'] = self.vis.state_dict()
         save_dict['optimizer'] = self.optimizer.state_dict()
 
+        if save_optimizer:
+            save_dict['optimizer'] = self.optimizer.state_dict()
+
         if save_path is None:
-            timestr = time.strftime('%m%d%H%M')
-            save_path = 'checkpoints/waternn_%s' % timestr
-            for k_, v_ in kwargs.items():
-                save_path += '_%s' % v_
+            # timestr = time.strftime('%m%d%H%M')
+            save_path = opt.save_path
+
+        if opt.customize:  
+            save_name = 'model' + '_self_' + opt.arch + '_'+ opt.optim + opt.kind + 'params.pth' 
+        else:
+            save_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.pth'
 
         save_dir = os.path.dirname(save_path)
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
 
-        t.save(save_dict, save_path)
+        t.save(save_dict, os.path.join(save_path, save_name))
         # self.vis.save([self.vis.env])
         return save_path
 
     def load(self, path, load_optimizer=True, parse_opt=False):
-        state_dict = t.load(path)
+        if opt.customize:
+            load_name = 'model' + '_self_' + opt.arch + '_' + opt.optim + opt.kind + 'params.pth'
+        else:
+            load_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.pth'
+        state_dict = t.load(os.path.join(path, load_name))
         if 'model' in state_dict:
-            self.faster_rcnn.load_state_dict(state_dict['model'])
+            self.water_net.load_state_dict(state_dict['model'])
         else:  # legacy way, for backward compatibility
-            self.faster_rcnn.load_state_dict(state_dict)
+            self.water_net.load_state_dict(state_dict)
             return self
         if parse_opt:
             opt._parse(state_dict['config'])

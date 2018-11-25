@@ -35,6 +35,13 @@ import torchvision.models as models
 best_acc1 = 0
 
 def main(**kwargs):
+    """
+    :param kwargs:
+        input : CUDA_VISIBLE_DEVICES=0 python train.py main --arch waternetsf --lr 0.000075 --epoch 20 --kind b1
+                --data_dir ~/water/waterdataset2 --save_path  '~/water/waternn/modelparams'
+    :return:
+    """
+    
     opt._parse(kwargs)
     print(opt)
     # set path of saving log in opt._parse()
@@ -42,7 +49,45 @@ def main(**kwargs):
     logging.debug('this is a logging debug message')
     main_worker()
 
-def validate(val_loader, model, criterion):
+
+def val_out(**kwargs):
+    """
+    :param kwargs:
+        input  :  CUDA_VISIBLE_DEVICES=0 python train.py val_out --arch waternetsf -kind b1
+                --data_dir ~/water/waterdataset2 --load_path '~/water/waternn/modelparams'
+    :return:
+    """
+    opt._parse(kwargs)
+    print("===========validate & predict mode ===============")
+    criterion = nn.CrossEntropyLoss().cuda()
+    opt.data_dir = kwargs['data_dir']
+    testset = TestDataset(opt)
+    test_dataloader = data_.DataLoader(testset,
+                                       batch_size=16,
+                                       num_workers=opt.test_num_workers,
+                                       shuffle=False, \
+                                       pin_memory=True
+                                       )
+    
+    if kwargs['pretrained'] :
+        print("=> using pre-trained model '{}'".format(opt.arch))
+        model = models.__dict__[kwargs['arch']](pretrained=True)
+    else:
+        print("=> creating model '{}'".format(kwargs['arch']))
+        if opt.customize:
+            print("=> self-defined model '{}'".format(kwargs['arch']))
+            model = mymodels.__dict__[kwargs['arch']]
+        else:
+            model = models.__dict__[kwargs['arch']]()
+    
+    trainer = WaterNetTrainer(model).cuda()
+    trainer.load(kwargs['load_path'], parse_opt=True)
+    print('load pretrained model from %s' % kwargs['loadpath'])
+    acc1, acc5 = validate(test_dataloader, model, criterion, True)
+    
+
+
+def validate(val_loader, model, criterion, seeout = False):
     batch_time = AverageMeter()
     losses = AverageMeter()
     top1 = AverageMeter()
@@ -50,6 +95,8 @@ def validate(val_loader, model, criterion):
 
     # switch to evaluate mode
     model.eval()
+
+    outf = open('predict.txt','w')
 
     with torch.no_grad():
         end = time.time()
@@ -63,9 +110,16 @@ def validate(val_loader, model, criterion):
             datas = datas.cuda().float()
             output = model(datas)
             loss = criterion(output, target)
-
+            if seeout:
+                outf.writelines(str(output))
             # measure accuracy and record loss
-            acc1, acc5 = accuracy(output, target, topk=(1, 5))
+            acc, pred5 = accuracy(output, target, topk=(1, 5))
+            if seeout:
+                writepred = pred5.tolist()
+                writestr = ','.join([str(item) for item in writepred])
+            outf.writelines(writestr + '\r\n')
+            acc1 = acc[0]
+            acc5 = acc[1]
             losses.update(loss.item(), datas.size(0))
             top1.update(acc1[0], datas.size(0))
             top5.update(acc5[0], datas.size(0))
@@ -87,8 +141,8 @@ def validate(val_loader, model, criterion):
               .format(top1=top1, top5=top5))
         logging.info(' validate-----* Acc@1 {top1.avg:.3f} Acc@5 {top5.avg:.3f} Loss {loss.val:.4f}'
               .format(top1=top1, top5=top5, loss=losses))
-
-    return top1.avg
+    outf.close()
+    return top1.avg, top5.avg
 
 
 def main_worker():
@@ -153,7 +207,7 @@ def main_worker():
         acc1 = validate(test_dataloader, model, criterion)
 
 
-        # best_path = trainer.save(best_map=best_map)
+    trainer.save(save_optimizer=True, save_path=opt.save_path)
 
         # if epoch == 9:
         #     trainer.load(best_path)
@@ -182,7 +236,9 @@ def train(train_loader, trainer, epoch):
         trainloss, output = trainer.train_step(label, datas)
         # print('==========output=======[{}]===='.format(output))
         # measure accuracy and record loss
-        acc1, acc5 = accuracy(output, label, topk=(1, 5))
+        acc, pred5 = accuracy(output, label, topk=(1, 5))
+        acc1 = acc[0]
+        acc5 = acc[1]
         losses.update(trainloss.item(), datas.size(0))
         top1.update(acc1[0], datas.size(0))
         top5.update(acc5[0], datas.size(0))
@@ -212,7 +268,7 @@ def accuracy(output, target, topk=(1,)):
     with torch.no_grad():
         maxk = max(topk)
         batch_size = target.size(0)
-
+        
         _, pred = output.topk(maxk, 1, True, True)
         pred = pred.t()
         correct = pred.eq(target.view(1, -1).expand_as(pred))
@@ -221,7 +277,10 @@ def accuracy(output, target, topk=(1,)):
         for k in topk:
             correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
             res.append(correct_k.mul_(100.0 / batch_size))
-        return res
+        return res, pred
+    
+    
+    
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
