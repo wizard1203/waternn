@@ -9,9 +9,12 @@ import sys
 import logging
 import matplotlib
 import logging
+from pprint import pprint
+from pprint import pformat
 from config import opt
 from dataset import TrainDataset, TestDataset
 import pprint
+from pprint import pformat
 from trainer import WaterNetTrainer
 from mymodels import MyModels as mymodels
 import torch
@@ -141,7 +144,8 @@ def validate(val_loader, model, criterion, seeout = False):
     if seeout:
         outf.writelines('* Acc@1 {top1.avg:.3f} Acc@5 {top5.avg:.3f} Loss {loss.val:.4f}\r\n'
                 .format(top1=top1, top5=top5, loss=losses))
-        outf.writelines('config:{}\r\n'.format(pprint(opt)))
+        outf.writelines('======user config========')
+        outf.writelines(pformat(opt._state_dict()))
     outf.close()
     return top1.avg, top5.avg
 
