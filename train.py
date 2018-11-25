@@ -109,14 +109,12 @@ def validate(val_loader, model, criterion, seeout = False):
             datas = datas.cuda().float()
             output = model(datas)
             loss = criterion(output, target)
-            if seeout:
-                outf.writelines(str(output))
             # measure accuracy and record loss
             acc, pred5 = accuracy(output, target, topk=(1, 5))
             if seeout:
                 writepred = pred5.tolist()
                 writestr = ','.join([str(item) for item in writepred])
-            outf.writelines(writestr + '\r\n')
+                outf.writelines(writestr + '\r\n')
             acc1 = acc[0]
             acc5 = acc[1]
             losses.update(loss.item(), datas.size(0))
