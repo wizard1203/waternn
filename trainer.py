@@ -57,9 +57,12 @@ class WaterNetTrainer(nn.Module):
         # self.update_meters(losses)
         return loss, pred
 
-    def scale_lr(self, decay=0.1):
+    def scale_lr(self):
+        lastlr = opt.lr
+        opt.lr *= opt.lr_decay
+        print("=========*** lr{} change to lr{}==========\n".format(lastlr, opt.lr))
         for param_group in self.optimizer.param_groups:
-            param_group['lr'] *= decay
+            param_group['lr'] = opt.lr
         return self.optimizer
 
     def save(self, save_optimizer=True, better = False, save_path=None):

@@ -32,7 +32,7 @@ class Config:
     # param for optimizer
     lr = 0.015
     weight_decay = 0.00001
-    lr_decay = 0.5  # exam: 0.015 -> 0.0075
+    lr_decay = 0.6666  #
 
     # record i-th log
     kind = '0'

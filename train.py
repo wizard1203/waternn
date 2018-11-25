@@ -217,17 +217,18 @@ def main_worker():
             print('===== * * *   best_acc1 :{} Update   ========\n'.format(best_acc1))
             best_path = trainer.save(better=True)
 
-        if epoch == 2:
-            trainer.load(best_path)
-            trainer.scale_lr(opt.lr_decay)
-        if epoch == 4:
-            trainer.load(best_path)
-            trainer.scale_lr(opt.lr_decay)
-        if epoch == 6:
-            trainer.load(best_path)
-            trainer.scale_lr(opt.lr_decay)
+        if epoch == 10:
+            trainer.load(best_path, load_optimizer=False)
+            trainer.scale_lr()
+        if epoch == 20:
+            trainer.load(best_path, load_optimizer=False)
+            trainer.scale_lr()
+        if epoch == 30:
+            trainer.load(best_path, load_optimizer=False)
+            trainer.scale_lr()
             
     validate(test_dataloader, model, criterion, seeout=True)
+    print("=====complete training & output predict =======")
     trainer.save(save_optimizer=True, better=False, save_path=opt.save_path)
 
         # if epoch == 9:
