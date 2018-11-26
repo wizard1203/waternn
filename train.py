@@ -213,23 +213,23 @@ def main_worker():
         # evaluate on validation set
         top1avr, _ = validate(test_dataloader, model, criterion, seeout=False)
 
-        if best_acc1 < top1avr:
-            best_acc1 = top1avr
-            print('===== * * *   best_acc1 :{} Update   ========\n'.format(best_acc1))
-            best_path = trainer.save(better=True)
-
-        if epoch == 20:
-            trainer.load(best_path, load_optimizer=False)
-            trainer.scale_lr()
-        if epoch == 40:
-            trainer.load(best_path, load_optimizer=False)
-            trainer.scale_lr()
-        if epoch == 60:
-            trainer.load(best_path, load_optimizer=False)
-            trainer.scale_lr()
-        if epoch == 80:
-            trainer.load(best_path, load_optimizer=False)
-            trainer.scale_lr()
+        # if best_acc1 < top1avr:
+        #     best_acc1 = top1avr
+        #     print('===== * * *   best_acc1 :{} Update   ========\n'.format(best_acc1))
+        #     best_path = trainer.save(better=True)
+        #
+        # if epoch == 20:
+        #     trainer.load(best_path, load_optimizer=False)
+        #     trainer.scale_lr()
+        # if epoch == 40:
+        #     trainer.load(best_path, load_optimizer=False)
+        #     trainer.scale_lr()
+        # if epoch == 60:
+        #     trainer.load(best_path, load_optimizer=False)
+        #     trainer.scale_lr()
+        # if epoch == 80:
+        #     trainer.load(best_path, load_optimizer=False)
+        #     trainer.scale_lr()
             
     validate(test_dataloader, model, criterion, seeout=True)
     print("=====complete training & output predict =======")
@@ -267,6 +267,25 @@ def train(train_loader, trainer, epoch):
         losses.update(trainloss.item(), datas.size(0))
         top1.update(acc1[0], datas.size(0))
         top5.update(acc5[0], datas.size(0))
+        
+        if best_acc1 < top1.avg:
+            best_acc1 = top1.avg
+            print('===== * * *   best_acc1 :{} Update   ========\n'.format(best_acc1))
+            best_path = trainer.save(better=True)
+
+        if epoch == 20:
+            trainer.load(best_path, load_optimizer=False)
+            trainer.scale_lr()
+        if epoch == 40:
+            trainer.load(best_path, load_optimizer=False)
+            trainer.scale_lr()
+        if epoch == 60:
+            trainer.load(best_path, load_optimizer=False)
+            trainer.scale_lr()
+        if epoch == 80:
+            trainer.load(best_path, load_optimizer=False)
+            trainer.scale_lr()
+
 
             
         # measure elapsed time
