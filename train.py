@@ -36,6 +36,7 @@ import torchvision.models as models
 
 best_acc1 = 0
 best_path = None
+lossesnum = 100.0
 def main(**kwargs):
     """
     :param kwargs:
@@ -155,6 +156,7 @@ def validate(val_loader, model, criterion, seeout = False):
 def main_worker():
     global best_acc1
     global best_path
+    global lossesnum
     # gpu = opt.gpu
 
 
@@ -253,6 +255,7 @@ def main_worker():
 def train(train_loader, trainer, epoch):
     global best_acc1
     global best_path
+    global lossesnum
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = AverageMeter()
@@ -277,10 +280,15 @@ def train(train_loader, trainer, epoch):
         top1.update(acc1[0], datas.size(0))
         top5.update(acc5[0], datas.size(0))
         
-        if best_acc1 < top1.avg:
-            best_acc1 = top1.avg
-            print('===== * * *   best_acc1 :{} Update   ========\n'.format(best_acc1))
+        if lossesnum > losses.val:
+            lossesnum = losses.val
+            print('====iter *{}==== * * *   losses.val :{} Update   ========\n'.format(ii, lossesnum))
             best_path = trainer.save(better=True)
+            
+        # if best_acc1 < top1.val:
+        #     best_acc1 = top1.val
+        #     print('===== * * *   best_acc1 :{} Update   ========\n'.format(best_acc1))
+        #     best_path = trainer.save(better=True)
             
         # measure elapsed time
         batch_time.update(time.time() - end)
