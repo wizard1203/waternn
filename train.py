@@ -218,13 +218,16 @@ def main_worker():
             print('===== * * *   best_acc1 :{} Update   ========\n'.format(best_acc1))
             best_path = trainer.save(better=True)
 
-        if epoch == 10:
-            trainer.load(best_path, load_optimizer=False)
-            trainer.scale_lr()
         if epoch == 20:
             trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
-        if epoch == 30:
+        if epoch == 40:
+            trainer.load(best_path, load_optimizer=False)
+            trainer.scale_lr()
+        if epoch == 60:
+            trainer.load(best_path, load_optimizer=False)
+            trainer.scale_lr()
+        if epoch == 80:
             trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
             
