@@ -1,5 +1,8 @@
 import waternets
 
+import torchvision.models as m
+
+
 class MyModels:
 
 	waternet = waternets.WaterNet()

@@ -113,11 +113,12 @@ def validate(val_loader, model, criterion, seeout = False):
             output = model(datas)
             loss = criterion(output, target)
             # measure accuracy and record loss
-            acc, pred5 = accuracy(output, target, topk=(1, 5))
+            acc, pred5, max5out = accuracy(output, target, topk=(1, 5))
             if seeout:
                 writepred = pred5.tolist()
+                max5out = max5out.tolist()
                 for i, item in enumerate(writepred) :
-                    outf.writelines(str(item) + ',' + str(target.tolist()[i]) + '\r\n')
+                    outf.writelines(str(item) + ',' + str(max5out[i]) + str(target.tolist()[i]) + '\r\n')
                     
             acc1 = acc[0]
             acc5 = acc[1]
@@ -257,7 +258,7 @@ def train(train_loader, trainer, epoch):
         trainloss, output = trainer.train_step(label, datas)
         # print('==========output=======[{}]===='.format(output))
         # measure accuracy and record loss
-        acc, pred5 = accuracy(output, label, topk=(1, 5))
+        acc, pred5, max5out= accuracy(output, label, topk=(1, 5))
         acc1 = acc[0]
         acc5 = acc[1]
         losses.update(trainloss.item(), datas.size(0))
@@ -291,7 +292,7 @@ def accuracy(output, target, topk=(1,)):
         maxk = max(topk)
         batch_size = target.size(0)
         
-        _, pred = output.topk(maxk, 1, True, True)
+        max5out, pred = output.topk(maxk, 1, True, True)
         pred2 = pred.t()
         correct = pred2.eq(target.view(1, -1).expand_as(pred2))
 
@@ -299,7 +300,7 @@ def accuracy(output, target, topk=(1,)):
         for k in topk:
             correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
             res.append(correct_k.mul_(100.0 / batch_size))
-        return res, pred
+        return res, pred, max5out
     
     
     
