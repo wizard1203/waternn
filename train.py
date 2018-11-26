@@ -244,6 +244,7 @@ def main_worker():
 
 
 def train(train_loader, trainer, epoch):
+    global best_acc1
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = AverageMeter()
