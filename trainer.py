@@ -91,7 +91,7 @@ class WaterNetTrainer(nn.Module):
         # save_path = 'checkpoints/waternetparams'
         # save_path = opt.save_path
         
-        if better :
+        if better:
             save_path = 'cur_best_params'
         else:
             # save_path = opt.save_path

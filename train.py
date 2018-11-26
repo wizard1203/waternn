@@ -35,7 +35,7 @@ import torchvision.models as models
 # import resource
 
 best_acc1 = 0
-
+best_path = None
 def main(**kwargs):
     """
     :param kwargs:
@@ -154,6 +154,7 @@ def validate(val_loader, model, criterion, seeout = False):
 
 def main_worker():
     global best_acc1
+    global best_path
     # gpu = opt.gpu
 
 
@@ -245,6 +246,7 @@ def main_worker():
 
 def train(train_loader, trainer, epoch):
     global best_acc1
+    global best_path
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = AverageMeter()
