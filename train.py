@@ -284,6 +284,7 @@ def train(train_loader, trainer, epoch):
             lossesnum = losses.val
             print('====iter *{}==== * * *   losses.val :{} Update   ========\n'.format(ii, lossesnum))
             best_path = trainer.save(better=True)
+            print("====epoch[{}]--- iter[{}] ** save params *******===".format(epoch, ii))
             
         # if best_acc1 < top1.val:
         #     best_acc1 = top1.val
@@ -355,7 +356,11 @@ def weights_init(m):
     if isinstance(m, nn.Conv2d): 
         nn.init.normal_(m.weight.data, mean=0, std=1)
         nn.init.normal_(m.bias.data, mean=0, std=1)
-        
+    if isinstance(m, nn.BatchNorm2d):
+        nn.init.constant_(m.weight, 1)
+        nn.init.constant_(m.bias, 0)
+
+
 if __name__ == '__main__':
     import fire
     fire.Fire()
