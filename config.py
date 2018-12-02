@@ -30,9 +30,9 @@ class Config:
     use_adam = False
 
     # param for optimizer
-    lr = 0.0000875
+    lr = 0.02
     weight_decay = 0.00001
-    lr_decay = 0.25  #
+    lr_decay = 0.33  #
 
     # record i-th log
     kind = '0'
