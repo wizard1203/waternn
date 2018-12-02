@@ -24,7 +24,7 @@ def read_sample(sample_file_path):
     return label, datas
 
 def dataprocess(datas):
-    """Returns the processed datas.
+    """Returns the processed datas.  if input not be uniformed
 
     Args:
         datas (list): The list of the datas.
@@ -32,7 +32,8 @@ def dataprocess(datas):
     Returns:
         processed datas
 
-    """ 
+    """
+    
     for line in datas:
         line[0] = (line[0] - 59.0) * 2.0
         line[1] = (line[1] - 64.0) * 1.9
@@ -68,7 +69,7 @@ class WaterDataset:
         sample_file = self.list_file[i]
 
         label, datas = read_sample(os.path.join(self.data_dir, sample_file))
-        datas = dataprocess(datas)
+        # datas = dataprocess(datas)
         return label, datas
 
     __getitem__ = get_example

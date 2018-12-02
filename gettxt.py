@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import argparse
 import operator
-
+import math
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbosity", help="increase output verbosity")
 parser.add_argument('-l', "--label", type=int, help="the num of labels")
@@ -12,8 +12,8 @@ def makedatesets(file_name, start_num):
 
 
 	# read the file
-	file_dir='C:\\Users\\zhtang\\Desktop\\water\\rawdata2'
-	new_f_dir = 'C:\\Users\\zhtang\\Desktop\\water\\rawdata2\\orderd_data'
+	file_dir='C:\\Users\\zhtang\\Desktop\\water\\rawdata4'
+	new_f_dir = 'C:\\Users\\zhtang\\Desktop\\water\\rawdata4\\orderd_data'
 	file_path = os.path.join(file_dir, file_name)
 	# data = pd.read_csv(file_path, low_memory=False)
 	# print data.ix[:10]['Day_of_Week']
@@ -36,22 +36,25 @@ def makedatesets(file_name, start_num):
 
 	dframe = pd.read_excel(file_path)
 	for index, line in dframe.iterrows():
-		# print(" new line =============\n")
+		print(" new line ============ ** {} **=\n".format(index))
 		# print(line)
 		# print(line[0], line[1], line[2], line[3])
-		line = [line[0], line[1], line[2], line[3]]
-		if operator.eq([int(intnum) for intnum in line ] ,[-1, -1, -1, -1]):
+		line = [line[i] for i in range(len(line))]
+		# print([str(line[i]).strip() for i in range(2)])
+		if operator.eq([str(line[i]).strip() for i in range(4)], ['-1.0', '-1.0','-1.0','-1.0']):
+		# if '-' in str(line[0]):
+			print([str(line[i]).strip() for i in range(2)])
 			if len(item) > 0:
-				start_num+=1
 				txt_name = str(start_num) + '.txt'
+				start_num += 1
 				new_f_path = os.path.join(new_f_dir, txt_name)
 				with open(new_f_path, 'a') as new_f:
-					for item_line in item: 
+					for item_line in item:
 						writeline = ','.join(item_line)
 						new_f.writelines([writeline, '\n'])
 				new_f.close()
 			item = list()
-		else :
+		else:
 			item.append([str(strnum) for strnum in line])
 
 	# with open(file_path) as f:
@@ -74,7 +77,8 @@ def makedatesets(file_name, start_num):
 	# f.close()
 	return start_num
 
-
+def isEqual(a, b, relError):
+	return (math.fabs(a - b) < relError)
 
 if __name__ == '__main__':
 	args = parser.parse_args()

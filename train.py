@@ -119,7 +119,8 @@ def validate(val_loader, model, criterion, seeout = False):
                 writepred = pred5.tolist()
                 max5out = max5out.tolist()
                 for i, item in enumerate(writepred) :
-                    outf.writelines(str(item) + ',' + str(max5out[i]) + str(target.tolist()[i]) + '\r\n')
+                    outf.writelines(str(item).strip('[').strip(']') + ',' + str(max5out[i]).strip('[').strip(']') +
+                                    ',' + str(target.tolist()[i]) + '\r\n')
                     
             acc1 = acc[0]
             acc5 = acc[1]

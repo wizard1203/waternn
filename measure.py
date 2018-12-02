@@ -25,7 +25,6 @@ from datasets import DatasetHDF5
 from networks.alexnet import AlexNet
 from threading import Thread
 
-
 class Measure:
     # io time
     io_time = 0
