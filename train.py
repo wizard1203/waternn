@@ -66,7 +66,7 @@ def val_out(**kwargs):
     opt.data_dir = kwargs['data_dir']
     testset = TestDataset(opt)
     test_dataloader = data_.DataLoader(testset,
-                                       batch_size=16,
+                                       batch_size=32,
                                        num_workers=opt.test_num_workers,
                                        shuffle=False, \
                                        pin_memory=True
@@ -99,7 +99,7 @@ def validate(val_loader, model, criterion, seeout = False):
     # switch to evaluate mode
     model.eval()
 
-    outf = open('predict.txt','w')
+    outf = open('predict2.txt','w')
 
     with torch.no_grad():
         end = time.time()
@@ -165,14 +165,14 @@ def main_worker():
     trainset = TrainDataset(opt)
     print('load data')
     train_dataloader = data_.DataLoader(trainset, \
-                                  batch_size=16, \
+                                  batch_size=32, \
                                   shuffle=False, \
                                   # pin_memory=True,
                                   num_workers=opt.train_num_workers)
 
     testset = TestDataset(opt)
     test_dataloader = data_.DataLoader(testset,
-                                       batch_size=16,
+                                       batch_size=32,
                                        num_workers=opt.test_num_workers,
                                        shuffle=False, \
                                        pin_memory=True

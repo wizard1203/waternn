@@ -176,7 +176,7 @@ class _Transition(nn.Sequential):
 # a example of densenet
 class WaterDenseNet(nn.Module):
     
-    def __init__(self, growth_rate=128, block_config=(4, 8, 16, 8, 4),
+    def __init__(self, growth_rate=128, block_config=(4, 8, 16, 12),
                  num_init_features=1536, bn_size=4, drop_rate=0.5, num_classes=17):
         
         super(WaterDenseNet, self).__init__()
