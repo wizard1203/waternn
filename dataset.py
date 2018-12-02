@@ -49,7 +49,7 @@ class TrainDataset(Dataset):
         label, datas = self.db.get_example(idx)
         label = t.from_numpy(np.array(label))
         datas = np.array(datas)
-        datas = self.tsf(datas)
+        # datas = self.tsf(datas)
         datas = t.from_numpy(datas)
         datas = datas.contiguous().view(1,96,16)
         # TODO: check whose stride is negative to fix this instead copy all
@@ -71,9 +71,9 @@ class TestDataset(Dataset):
         label, datas = self.db.get_example(idx)
         label = t.from_numpy(np.array(label))
         datas = np.array(datas)
-        datas = self.tsf(datas)
+        # datas = self.tsf(datas)
         datas = t.from_numpy(datas)
-        datas = datas.contiguous().view(1,96,4)
+        datas = datas.contiguous().view(1,96,16)
         # TODO: check whose stride is negative to fix this instead copy all
 
         return label, datas
