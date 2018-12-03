@@ -222,24 +222,24 @@ def main_worker():
         #     print('===== * * *   best_acc1 :{} Update   ========\n'.format(best_acc1))
         #     best_path = trainer.save(better=True)
 
-        if epoch == 15:
+        if epoch == 50:
             trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
-        if epoch == 30:
+        if epoch == 100:
             trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
-        if epoch == 45:
+        if epoch == 150:
             trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
-        if epoch == 60:
+        if epoch == 200:
             trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
-        if epoch == 75:
-            trainer.load(best_path, load_optimizer=False)
-            trainer.scale_lr()
-        if epoch == 90:
-            trainer.load(best_path, load_optimizer=False)
-            trainer.scale_lr()
+        # if epoch == 75:
+        #     trainer.load(best_path, load_optimizer=False)
+        #     trainer.scale_lr()
+        # if epoch == 90:
+        #     trainer.load(best_path, load_optimizer=False)
+        #     trainer.scale_lr()
             
     validate(test_dataloader, model, criterion, seeout=True)
     print("=====complete training & output predict =======")
