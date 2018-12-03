@@ -12,8 +12,8 @@ def makedatesets(file_name, start_num):
 
 
 	# read the file
-	file_dir='C:\\Users\\zhtang\\Desktop\\water\\rawdata4'
-	new_f_dir = 'C:\\Users\\zhtang\\Desktop\\water\\rawdata4\\orderd_data'
+	file_dir='C:\\Users\\zhtang\\Desktop\\water\\rawdata5'
+	new_f_dir = 'C:\\Users\\zhtang\\Desktop\\water\\rawdata5\\orderd_data'
 	file_path = os.path.join(file_dir, file_name)
 	# data = pd.read_csv(file_path, low_memory=False)
 	# print data.ix[:10]['Day_of_Week']
