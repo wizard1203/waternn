@@ -217,13 +217,12 @@ class WaterDenseNet(nn.Module):
         return out
 
 
-# a example of densenet
 class WaterDenseNetFinal(nn.Module):
     
     def __init__(self, growth_rate=128, block_config=(8, 16, 16, 12),
                  num_init_features=1536, bn_size=4, drop_rate=0.5, num_classes=34):
         
-        super(WaterDenseNet, self).__init__()
+        super(WaterDenseNetFinal, self).__init__()
         
         # first conv
         # self.features = nn.Sequential(OrderedDict([
