@@ -4,6 +4,8 @@ import argparse
 import operator
 import random
 
+#------- python shuffle.py -p C:\\Users\\zhtang\\Desktop\\water\\rawdatafinal
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbosity", help="increase output verbosity")
 #parser.add_argument('-l', "--label", type=int, help="the num of labels")
@@ -45,7 +47,7 @@ def datashuffle(args):
 			tempf.write(line)
 		print('temp complete %s', file)
 		pref.close() 
-		tempf.close( )
+		tempf.close()
 		
 	file_list = os.listdir(tempf_path)
 	for i, file in enumerate(file_list):

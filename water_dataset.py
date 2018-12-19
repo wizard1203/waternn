@@ -2,6 +2,7 @@ import os
 
 import numpy as np
 import logging
+from config import opt
 def read_sample(sample_file_path):
     """Returns the sample_file.
 
@@ -14,8 +15,9 @@ def read_sample(sample_file_path):
     """ 
     with open(sample_file_path, 'r') as f:
         lines = f.readlines()
-
-        label = int(float(lines[0].split(',')[0].strip()))
+        # label = int(float(lines[0].split(',')[0].strip()))
+        reallabel = int(float(lines[0].split(',')[0].strip()))
+        label = opt.labels_dict.index(reallabel)
         datas = list()
         for line in lines[1:] :
             line = [float(item) for item in line.split(',')]

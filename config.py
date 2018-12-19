@@ -61,8 +61,42 @@ class Config:
     # model
     load_path = None
     save_path = '~/water/modelparams'
-
-    
+    labels_dict = (
+    1036,
+    1066,
+    1064,
+    1032,
+    1004,
+    1038,
+    1040,
+    1030,
+    1014,
+    1008,
+    1002,
+    1006,
+    1078,
+    1010,
+    1046,
+    1052,
+    1056,
+    1080,
+    1060,
+    1018,
+    1020,
+    1016,
+    1022,
+    1026,
+    1042,
+    1024,
+    1028,
+    1062,
+    1044,
+    1058,
+    1048,
+    1050,
+    1034,
+    1012
+    )
     def _parse(self, kwargs):
         state_dict = self._state_dict()
         for k, v in kwargs.items():

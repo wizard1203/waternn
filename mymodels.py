@@ -9,3 +9,4 @@ class MyModels:
 	waternetsf = waternets.WaterNetSmallFC()
 	waternetconvfc = waternets.WaterNetConvFC()
 	waterdsnet = waternets.WaterDenseNet()
+	waterdsnetf = waternets.WaterDenseNetFinal()

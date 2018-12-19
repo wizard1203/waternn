@@ -3,17 +3,21 @@ import pandas as pd
 import argparse
 import operator
 import math
+
+#------- python gettxt.py -p 'C:\\Users\\zhtang\\Desktop\\water\\rawdatafinal'
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbosity", help="increase output verbosity")
 parser.add_argument('-l', "--label", type=int, help="the num of labels")
 parser.add_argument("-f", "--files", nargs='+', type=str, help="list of files")
+parser.add_argument("-p", "--path", type=str, help="path of files")
 
 def makedatesets(file_name, start_num):
 
 
 	# read the file
-	file_dir='C:\\Users\\zhtang\\Desktop\\water\\rawdata5'
-	new_f_dir = 'C:\\Users\\zhtang\\Desktop\\water\\rawdata5\\orderd_data'
+	file_dir='C:\\Users\\zhtang\\Desktop\\water\\rawdatafinal'
+	new_f_dir = 'C:\\Users\\zhtang\\Desktop\\water\\rawdatafinal\\orderd_data'
 	file_path = os.path.join(file_dir, file_name)
 	# data = pd.read_csv(file_path, low_memory=False)
 	# print data.ix[:10]['Day_of_Week']
@@ -83,7 +87,8 @@ def isEqual(a, b, relError):
 if __name__ == '__main__':
 	args = parser.parse_args()
 	start_num = 0
-	for file_name in args.files:
+	file_list = os.listdir(args.path)
+	for file_name in file_list:
 		start_num = makedatesets(file_name, start_num)
 
  
