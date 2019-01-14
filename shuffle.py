@@ -4,7 +4,7 @@ import argparse
 import operator
 import random
 
-#------- python shuffle.py -p C:\\Users\\zhtang\\Desktop\\water\\rawdatafinal
+#------- python shuffle.py -p C:\\Users\\zhtang\\Desktop\\water\\rawdatafinalnoise
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbosity", help="increase output verbosity")

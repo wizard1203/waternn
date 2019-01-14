@@ -41,7 +41,7 @@ def main(**kwargs):
     """
     :param kwargs:
         input : CUDA_VISIBLE_DEVICES=0 python train.py main --arch waternetsf --lr 0.000075 --epoch 20 --kind b1
-                --data_dir ~/water/waterdataset2 --save_path  '~/water/waternn/modelparams'
+                --data_dir ~/water/waterdataset2 --save_path  '~/water/waternn/modelparams' --out predict
     :return:
     """
     
@@ -90,7 +90,7 @@ def val_out(**kwargs):
     
 
 
-def validate(val_loader, model, criterion, seeout = False):
+def validate(val_loader, model, criterion, outfile='predict', seeout = False):
     batch_time = AverageMeter()
     losses = AverageMeter()
     top1 = AverageMeter()
@@ -99,7 +99,8 @@ def validate(val_loader, model, criterion, seeout = False):
     # switch to evaluate mode
     model.eval()
 
-    outf = open('predict2.txt','w')
+    outpath = outfile + '.txt'
+    outf = open(outpath, 'w')
 
     with torch.no_grad():
         end = time.time()
@@ -222,19 +223,19 @@ def main_worker():
         #     print('===== * * *   best_acc1 :{} Update   ========\n'.format(best_acc1))
         #     best_path = trainer.save(better=True)
 
+        if epoch == 20:
+            trainer.load(best_path, load_optimizer=False)
+            trainer.scale_lr()
         if epoch == 40:
+            trainer.load(best_path, load_optimizer=False)
+            trainer.scale_lr()
+        if epoch == 60:
             trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
         if epoch == 80:
             trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
-        if epoch == 120:
-            trainer.load(best_path, load_optimizer=False)
-            trainer.scale_lr()
-        if epoch == 160:
-            trainer.load(best_path, load_optimizer=False)
-            trainer.scale_lr()
-        if epoch == 200:
+        if epoch == 100:
             trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
         # if epoch == 75:
@@ -244,7 +245,7 @@ def main_worker():
         #     trainer.load(best_path, load_optimizer=False)
         #     trainer.scale_lr()
             
-    validate(test_dataloader, model, criterion, seeout=True)
+    validate(test_dataloader, model, criterion, opt.out, seeout=True)
     print("=====complete training & output predict =======")
     trainer.save(save_optimizer=True, better=False, save_path=opt.save_path)
 

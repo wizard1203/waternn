@@ -4,7 +4,7 @@ import argparse
 import operator
 import math
 
-#------- python gettxt.py -p 'C:\\Users\\zhtang\\Desktop\\water\\rawdatafinal'
+#------- python gettxt.py -p C:\\Users\\zhtang\\Desktop\\water\\rawdatafinalnoise
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbosity", help="increase output verbosity")
@@ -16,8 +16,8 @@ def makedatesets(file_name, start_num):
 
 
 	# read the file
-	file_dir='C:\\Users\\zhtang\\Desktop\\water\\rawdatafinal'
-	new_f_dir = 'C:\\Users\\zhtang\\Desktop\\water\\rawdatafinal\\orderd_data'
+	file_dir='C:\\Users\\zhtang\\Desktop\\water\\rawdatafinalnoise'
+	new_f_dir = 'C:\\Users\\zhtang\\Desktop\\water\\rawdatafinalnoise\\orderd_data'
 	file_path = os.path.join(file_dir, file_name)
 	# data = pd.read_csv(file_path, low_memory=False)
 	# print data.ix[:10]['Day_of_Week']
@@ -90,5 +90,3 @@ if __name__ == '__main__':
 	file_list = os.listdir(args.path)
 	for file_name in file_list:
 		start_num = makedatesets(file_name, start_num)
-
- 

@@ -10,7 +10,7 @@ class Config:
     # data
     data_dir = ' '
     out_pred_dir = '/home/zhtang/water/txt/'
-
+    out = 'predict'
     # for transfomers
     norm_mean = 0.0
     norm_std = 1.0
@@ -49,7 +49,7 @@ class Config:
     data = 'water'
 
     # training
-    epoch = 14
+    epoch = 120
 
     # if eval
     evaluate = False
