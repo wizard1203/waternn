@@ -261,7 +261,7 @@ class WaterDenseNetFinal(nn.Module):
 
 class WaterDenseNet_in4_out58(nn.Module):
     
-    def __init__(self, growth_rate=128, block_config=(8, 16, 16, 12),
+    def __init__(self, growth_rate=128, block_config=(8, 16, 24, 16),
                  num_init_features=1536, bn_size=4, drop_rate=0.5, num_classes=58):
         
         super(WaterDenseNet_in4_out58, self).__init__()
