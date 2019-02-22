@@ -10,3 +10,6 @@ class MyModels:
 	waternetconvfc = waternets.WaterNetConvFC()
 	waterdsnet = waternets.WaterDenseNet()
 	waterdsnetf = waternets.WaterDenseNetFinal()
+    waterdsnetf_in4_out58 = waternets.WaterDenseNet_in4_out58()
+
+
