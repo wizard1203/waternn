@@ -224,19 +224,19 @@ def main_worker():
         #     best_path = trainer.save(better=True)
 
         if epoch == 20:
-            trainer.load(best_path, load_optimizer=False)
+            # trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
         if epoch == 40:
-            trainer.load(best_path, load_optimizer=False)
+            # trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
         if epoch == 60:
-            trainer.load(best_path, load_optimizer=False)
+            # trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
         if epoch == 80:
-            trainer.load(best_path, load_optimizer=False)
+            # trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
         if epoch == 100:
-            trainer.load(best_path, load_optimizer=False)
+            # trainer.load(best_path, load_optimizer=False)
             trainer.scale_lr()
         # if epoch == 75:
         #     trainer.load(best_path, load_optimizer=False)
@@ -247,7 +247,7 @@ def main_worker():
             
     validate(test_dataloader, model, criterion, opt.out, seeout=True)
     print("=====complete training & output predict =======")
-    trainer.save(save_optimizer=True, better=False, save_path=opt.save_path)
+    # trainer.save(save_optimizer=True, better=False, save_path=opt.save_path)
 
         # if epoch == 9:
         #     trainer.load(best_path)
