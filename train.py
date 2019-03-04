@@ -288,7 +288,7 @@ def train(train_loader, trainer, epoch):
         if lossesnum > losses.val:
             lossesnum = losses.val
             print('====iter *{}==== * * *   losses.val :{} Update   ========\n'.format(ii, lossesnum))
-            best_path = trainer.save(better=True)
+            # best_path = trainer.save(better=True)
             print("====epoch[{}]--- iter[{}] ** save params *******===".format(epoch, ii))
             
         # if best_acc1 < top1.val:
@@ -336,7 +336,7 @@ def accuracy(output, target, topk=(1,)):
     
 
 class AverageMeter(object):
-    """Computes and stores the average and current value"""
+    """Computes and stores the average and currentcurrent value"""
     def __init__(self):
         self.reset()
 
