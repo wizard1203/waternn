@@ -63,18 +63,19 @@ class Config:
     save_path = '~/water/modelparams'
 
     # len(labels_dict) == 34
-    labels_dict2 = (1036, 1066, 1064, 1032, 1004, 1038, 1040, 1030, 1014,
+    labels_dict_34 = (1036, 1066, 1064, 1032, 1004, 1038, 1040, 1030, 1014,
     1008, 1002, 1006, 1078, 1010, 1046, 1052,
     1056, 1080, 1060, 1018, 1020, 1016, 1022, 1026, 1042,
     1024, 1028, 1062, 1044, 1058, 1048, 1050, 1034, 1012
     )
 
     # len(labels_dict) == 58
-    labels_dict = (379, 385, 390, 391, 392, 406, 414, 415, 416, 417, 418, 419, 420, 422,
+    labels_dict_58 = (379, 385, 390, 391, 392, 406, 414, 415, 416, 417, 418, 419, 420, 422,
     425, 434, 435, 436, 438, 439, 440, 441, 443, 444, 445, 446, 447, 448, 449,
     450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 464, 465, 466, 468, 512,
     513, 514, 515, 517, 518, 519, 520, 557, 558, 559, 560, 561, 562
     )
+    labels_dict = ()
 
     def _parse(self, kwargs):
         state_dict = self._state_dict()
@@ -93,6 +94,10 @@ class Config:
         if not os.path.exists('log'):
             os.mkdir('log')
 
+        if opt.arch == 'waterdsnetf':
+            self.labels_dict = self.labels_dict_34
+        elif opt.arch == 'waterdsnetf_in4_out58':
+            self.labels_dict = self.labels_dict_58
         logging_path = os.path.join('log', logging_name) 
     
         logging.basicConfig(level=logging.DEBUG,
