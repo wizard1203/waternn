@@ -12,11 +12,11 @@ class MyModels:
     # waterdsnetf_in4_out58 = waternets.WaterDenseNet_in4_out58()
     # waterdsnetf_self_define = waternets.WaterDenseNet_self_define(growth_rate=opt.growth_rate, num_init_features=opt.num_init_features)
 
-    def waterdsnetf_self_define(self, opt):
+    def waterdsnetf_self_define(opt):
         return waternets.WaterDenseNet_self_define(growth_rate=opt.growth_rate, num_init_features=opt.num_init_features)
 
-    def waterdsnetf(self, opt):
+    def waterdsnetf(opt):
         return waternets.WaterDenseNetFinal()
 
-    def waterdsnetf_in4_out58(self, opt):
+    def waterdsnetf_in4_out58(opt):
         return waternets.WaterDenseNet_in4_out58()

@@ -101,6 +101,9 @@ class Config:
             self.labels_dict = self.labels_dict_34
         elif opt.arch == 'waterdsnetf_in4_out58':
             self.labels_dict = self.labels_dict_58
+        elif opt.arch == 'waterdsnetf_self_define':
+            self.labels_dict = self.labels_dict_34
+
         logging_path = os.path.join('log', logging_name) 
     
         logging.basicConfig(level=logging.DEBUG,
