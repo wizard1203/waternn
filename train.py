@@ -179,16 +179,8 @@ def main_worker():
                                        pin_memory=True
                                        )
 
-    if opt.pretrained:
-        print("=> using pre-trained model '{}'".format(opt.arch))
-        model = models.__dict__[opt.arch](pretrained=True)
-    else:
-        print("=> creating model '{}'".format(opt.arch))
-        if opt.customize:
-            print("=> self-defined model '{}'".format(opt.arch))
-            model = mymodels.__dict__[opt.arch]
-        else:
-            model = models.__dict__[opt.arch]()
+
+    model = models.__dict__[opt.arch](opt)
 
 
     model.apply(weights_init)
