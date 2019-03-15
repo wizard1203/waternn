@@ -28,7 +28,7 @@ from torch.utils import data as data_
 import torch.utils.data.distributed
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
-import torchvision.models as models
+
 # from utils import array_tool as at
 # from utils.vis_tool import visdom_bbox
 # from utils.eval_tool import eval_detection_voc
@@ -72,16 +72,7 @@ def val_out(**kwargs):
                                        pin_memory=True
                                        )
     
-    if kwargs['pretrained'] :
-        print("=> using pre-trained model '{}'".format(opt.arch))
-        model = models.__dict__[kwargs['arch']](pretrained=True)
-    else:
-        print("=> creating model '{}'".format(kwargs['arch']))
-        if opt.customize:
-            print("=> self-defined model '{}'".format(kwargs['arch']))
-            model = mymodels.__dict__[kwargs['arch']]
-        else:
-            model = models.__dict__[kwargs['arch']]()
+    model = mymodels.__dict__[kwargs['arch']]()
     
     trainer = WaterNetTrainer(model).cuda()
     trainer.load(kwargs['load_path'], parse_opt=True)
@@ -180,7 +171,7 @@ def main_worker():
                                        )
 
 
-    model = models.__dict__[opt.arch](opt)
+    model = mymodels.__dict__[opt.arch](opt)
 
 
     model.apply(weights_init)
