@@ -51,7 +51,7 @@ class TrainDataset(Dataset):
         datas = np.array(datas)
         # datas = self.tsf(datas)
         datas = t.from_numpy(datas)
-        datas = datas.contiguous().view(1,96,16)
+        datas = datas.contiguous().view(1, -1)
         # TODO: check whose stride is negative to fix this instead copy all
         
 
@@ -73,7 +73,7 @@ class TestDataset(Dataset):
         datas = np.array(datas)
         # datas = self.tsf(datas)
         datas = t.from_numpy(datas)
-        datas = datas.contiguous().view(1,96,16)
+        datas = datas.contiguous().view(1, -1)
         # TODO: check whose stride is negative to fix this instead copy all
 
         return label, datas
