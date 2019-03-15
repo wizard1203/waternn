@@ -21,6 +21,9 @@ class Config:
     # architecture of network
     customize = True
     arch = 'waternet'
+    growth_rate = 128
+    num_init_features = 1536
+    num_classes = 34
 
     train_num_workers = 8
     test_num_workers = 8
