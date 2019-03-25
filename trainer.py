@@ -5,19 +5,12 @@ from torch.nn import functional as F
 import logging
 from torch import nn
 import torch as t
-# from utils import array_tool as at
-# from utils.vis_tool import Visualizer
 
 from config import opt
 from torchnet.meter import ConfusionMeter, AverageValueMeter
 from myoptimizer import get_optimizer
 
 class WaterNetTrainer(nn.Module):
-    """
-    Args:
-        
-            
-    """
 
     def __init__(self, water_net):
         super(WaterNetTrainer, self).__init__()
@@ -27,17 +20,7 @@ class WaterNetTrainer(nn.Module):
         # optimizer
         self.optimizer = get_optimizer(self.water_net)
 
-        # visdom wrapper
-        # self.vis = Visualizer(env=opt.env)
-
     def forward(self, datas):
-        """
-
-        Args:
-
-        Returns:
-            
-        """
         pred = self.water_net(datas)
         return pred
 
@@ -47,14 +30,10 @@ class WaterNetTrainer(nn.Module):
 
         self.optimizer.zero_grad()
         pred = self.forward(datas)
-        # print('=======after forward ======pred:{}===='.format(pred))
         loss = F.nll_loss(pred, label)
-        # print('=======after cul loss ======loss:{}===='.format(loss))
         loss.backward()
         self.optimizer.step()
 
-
-        # self.update_meters(losses)
         return loss, pred
 
     def scale_lr(self):
@@ -66,17 +45,6 @@ class WaterNetTrainer(nn.Module):
         return self.optimizer
 
     def save(self, save_optimizer=True, better = False, save_path=None):
-        """serialize models include optimizer and other info
-        return path where the model-file is stored.
-
-        Args:
-            save_optimizer (bool): whether save optimizer.state_dict().
-            save_path (string): where to save model, if it's None, save_path
-                is generate using time str and info from kwargs.
-        
-        Returns:
-            save_path(str): the path to save models.
-        """
         save_dict = dict()
 
         save_dict['model'] = self.water_net.state_dict()
@@ -86,10 +54,6 @@ class WaterNetTrainer(nn.Module):
 
         if save_optimizer:
             save_dict['optimizer'] = self.optimizer.state_dict()
-
-        # if save_path is None:
-        # save_path = 'checkpoints/waternetparams'
-        # save_path = opt.save_path
         
         if better:
             save_path = 'cur_best_params'
@@ -111,11 +75,6 @@ class WaterNetTrainer(nn.Module):
 
     def load(self, path, load_optimizer=True, parse_opt=False):
 
-        # if opt.customize:
-        #     load_name = 'model' + '_self_' + opt.arch + '_' + opt.optim + opt.kind + 'params.tar'
-        # else:
-        #     load_name = 'model' + '_default_' + opt.arch  + '_' + opt.optim + opt.kind + 'params.tar'
-        # state_dict = t.load(os.path.join(path, load_name))
         state_dict = t.load(path)
         if 'model' in state_dict:
             self.water_net.load_state_dict(state_dict['model'])
