@@ -2,18 +2,12 @@ from pprint import pprint
 from pprint import pformat
 import os
 import logging
-# Default Configs for training
-# NOTE that, config items could be overwriten by passing argument through command line.
-# e.g. --voc-data-dir='./data/'
 
 class Config:
     # data
     data_dir = ' '
     out_pred_dir = '/home/zhtang/water/txt/'
     out = 'predict'
-    # for transfomers
-    norm_mean = 0.0
-    norm_std = 1.0
 
     # pretrained
     pretrained = None
@@ -56,9 +50,6 @@ class Config:
 
     # if eval
     evaluate = False
-
-    # debug
-    # debug_file = '/tmp/debugf'
 
     test_num = 10000
     # model

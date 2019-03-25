@@ -29,11 +29,6 @@ class Measure:
     # io time
     io_time = 0
 
-
-    # for transfomers
-    norm_mean = 0.0
-    norm_std = 1.0
-
     # pretrained
     pretrained = None
 

@@ -38,12 +38,6 @@ best_acc1 = 0
 best_path = None
 lossesnum = 100.0
 def main(**kwargs):
-    """
-    :param kwargs:
-        input : CUDA_VISIBLE_DEVICES=0 python train.py main --arch waternetsf --lr 0.000075 --epoch 20 --kind b1
-                --data_dir ~/water/waterdataset2 --save_path  '~/water/waternn/modelparams' --out predict
-    :return:
-    """
     
     opt._parse(kwargs)
     print(opt)
@@ -54,12 +48,7 @@ def main(**kwargs):
 
 
 def val_out(**kwargs):
-    """
-    :param kwargs:
-        input  :  CUDA_VISIBLE_DEVICES=0 python train.py val_out --arch waternetsf -kind b1
-                --data_dir ~/water/waterdataset2 --load_path '~/water/waternn/modelparams'
-    :return:
-    """
+
     opt._parse(kwargs)
     print("===========validate & predict mode ===============")
     criterion = nn.CrossEntropyLoss().cuda()
@@ -183,8 +172,6 @@ def main_worker():
     if opt.load_path:
         trainer.load(opt.load_path)
         print('load pretrained model from %s' % opt.load_path)
-    #trainer.vis.text(dataset.db.label_names, win='labels')
-    #best_map = 0
 
     # define (criterion) for evaluation
     criterion = nn.CrossEntropyLoss().cuda()
