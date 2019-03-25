@@ -1,7 +1,7 @@
 # Fully-linear DenseNet
 Implementation of a Fully-linear DenseNet for inspection of water pipe burst.
 
-## some cmd arguments:
+## Some cmd arguments:
 *    --arch  choose a kind of architecture to use
 *    --out   the file name of predict result
 *    --lr    learning rate 
@@ -44,3 +44,5 @@ Default batch_size is 128, you can change it in the train.py
 Default weight_decay is 0.00005, you can change it in config.py
 ```
 
+## log.txt
+This file records the history cmds and the corresponding acc1 and acc5. You can refer to it to run the neural network on different datasets.
