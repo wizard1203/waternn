@@ -1,5 +1,5 @@
 # Fully-linear DenseNet
-Implementation of a Fully-linear DenseNet for inspection of water pipe burst.
+Implementation of a Fully-linear DenseNet for pipe busrt location of a water distribution network.
 
 ## Some cmd arguments:
 *    --arch  choose a kind of architecture to use
@@ -14,14 +14,14 @@ Implementation of a Fully-linear DenseNet for inspection of water pipe burst.
 *    --growth_rate an argument of arch waterdsnetf_self_define
 
 
-### example cmd 1 (for default dataset Anytown) :
-python train.py main --arch waterdsnetf --lr 0.6 --epoch 120 --kind Anytown_0307_P10C10_B0105_4M --data_dir ~/water/Anytown_0307_P10C10_B0105_4M  --save_path './water/modelparams' --out Anytown_0307_P10C10_B0105_4M
+### example cmd 1 (default Anytown dataset) :
+python train.py main --arch waterdsnetf --lr 0.6 --epoch 120 --kind Anytown_P10C10_B0105_4M --data_dir ~/water/Anytown_P10C10_B0105_4M  --save_path './water/modelparams' --out Anytown_P10C10_B0105_4M
 
-### example cmd 2 (for dataset Anytown with Duration changed) :
-python train.py main --arch waterdsnetf_self_define --num_init_features 320 --growth_rate 32 --lr 0.6 --epoch 120 --kind Anytown_0313_P10C10_B1030_Duration5 --data_dir ~/water/Anytown_0313_P10C10_B1030_Duration5   --save_path './water/modelparams' --out Anytown_0313_P10C10_B1030_Duration5 
+### example cmd 2 (dataset Anytown with Duration changed) :
+python train.py main --arch waterdsnetf_self_define --num_init_features 320 --growth_rate 32 --lr 0.6 --epoch 120 --kind Anytown_P10C10_B1030_Duration5 --data_dir ~/water/Anytown_P10C10_B1030_Duration5   --save_path './water/modelparams' --out Anytown_P10C10_B1030_Duration5 
 
-### example cmd 3 (for dataset Mudu) ：
-CUDA_VISIBLE_DEVICES=0 python train.py main --arch waterdsnetf_in4_out58 --lr 0.6 --epoch 120 --kind Mudu_0317_P10C10_B1030_4M --data_dir ~/water/Mudu_0317_P10C10_B1030_4M  --save_path './water/modelparams' --out Mudu_0317_P10C10_B1030_4M 
+### example cmd 3 (Mudu dataset) ：
+CUDA_VISIBLE_DEVICES=0 python train.py main --arch waterdsnetf_in4_out58 --lr 0.6 --epoch 120 --kind Mudu_P10C10_B1030_4M --data_dir ~/water/Mudu_P10C10_B1030_4M  --save_path './water/modelparams' --out Mudu_P10C10_B1030_4M 
 
 ## Tricks during training
 
@@ -44,5 +44,4 @@ Default batch_size is 128, you can change it in the train.py
 Default weight_decay is 0.00005, you can change it in config.py
 ```
 
-## log.txt
-This file records the history cmds and the corresponding acc1 and acc5. You can refer to it to run the neural network on different datasets.
+
