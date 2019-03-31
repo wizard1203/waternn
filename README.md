@@ -31,6 +31,7 @@ You can directly changde the codes to set the periods of diminishing.
 ```
 * choose a best model with lowest loss since the last time when learning rate changed 
 ```
+When the learning rate changes, we will choose a set of parameters of the best model of which the loss is the lowest since the last time learning rate changed. And replace the current parameters with the chosen ones. 
 If you want to train fast and save space, this is not needed. Acturally, it is commented-out, so you should read the code and reuse it if you want to try this trick.
 ```
 
