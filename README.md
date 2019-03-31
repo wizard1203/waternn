@@ -29,11 +29,6 @@ CUDA_VISIBLE_DEVICES=0 python train.py main --arch waterdsnetf_in4_out58 --lr 0.
 ```
 You can directly changde the codes to set the periods of diminishing.
 ```
-* choose a best model with lowest loss since the last time when learning rate changed 
-```
-When the learning rate changes, we will choose a set of parameters of the best model, of which the loss is the minimum since the last time learning rate changes. After that, the current parameters is replaced with the chosen ones. 
-In order to train faster and save space, the procedure can be omitted. As the corresponding parts is commented-out, the readers can read and reuse it if they think this trick useful.
-```
 
 ## other super-parameters:
 * batch_size
