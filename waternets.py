@@ -361,7 +361,7 @@ class WaterCNNDenseNet_in4_out58(nn.Module):
 
     def forward(self, x):
         # x = x.view(-1, 1536)
-        # x = x.view(-1, 1, 96, 16)
+        x = x.view(-1, 1, 96, 16)
         features = self.features(x)
         # if self.activation=='relu':
         out = F.relu(features, inplace=True)
