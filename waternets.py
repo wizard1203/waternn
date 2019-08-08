@@ -182,7 +182,7 @@ class _DenseCNNLayer(nn.Sequential):
         self.drop_rate = drop_rate
 
     def forward(self, x):
-        new_features = super(_DenseLayer, self).forward(x)
+        new_features = super(_DenseCNNLayer, self).forward(x)
         if self.drop_rate > 0:
             new_features = F.dropout(new_features, p=self.drop_rate, training=self.training)
         return t.cat([x, new_features], 1)
