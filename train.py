@@ -330,8 +330,10 @@ def weights_init(m):
         nn.init.normal_(m.bias.data, mean=0, std=1)
     if isinstance(m, nn.Conv2d): 
         nn.init.normal_(m.weight.data, mean=0, std=1)
-        if m.bias.data:
+        try:
             nn.init.normal_(m.bias.data, mean=0, std=1)
+        except:
+            print('no bias =====\n')
     if isinstance(m, nn.BatchNorm2d):
         nn.init.constant_(m.weight, 1)
         nn.init.constant_(m.bias, 0)
