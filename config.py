@@ -9,6 +9,8 @@ class Config:
     out_pred_dir = '/home/zhtang/water/txt/'
     out = 'predict'
 
+    nets = ['waternetsmallfl', 'watercnndsnetf_in4_out58', 'waterdsnetf_in4_out58', 'waterdsnetf_self_define']
+
     # pretrained
     pretrained = None
 
@@ -27,6 +29,28 @@ class Config:
     use_adam = False
 
     # param for optimizer
+    # lr = {}
+    # weight_decay = {}
+    # lr_decay = {}
+
+    # lr['waterdsnetf_self_define'] = 0.6
+    # weight_decay['waterdsnetf_self_define'] = 0.00005
+    # lr_decay['waterdsnetf_self_define'] = 0.33
+
+    # lr['waternetsmallfl'] = 0.01
+    # weight_decay['waternetsmallfl'] = 0.00005
+    # lr_decay['waternetsmallfl'] = 0.33
+
+    # lr['watercnndsnetf_in4_out58'] = 0.1
+    # weight_decay['watercnndsnetf_in4_out58'] = 0.00005
+    # lr_decay['watercnndsnetf_in4_out58'] = 0.33
+
+    # lr['waterdsnetf_in4_out58'] = 0.2
+    # weight_decay['waterdsnetf_in4_out58'] = 0.00005
+    # lr_decay['waterdsnetf_in4_out58'] = 0.33
+
+    activation = 'relu'
+
     lr = 0.6
     weight_decay = 0.00005
     lr_decay = 0.33  #
@@ -109,10 +133,6 @@ class Config:
         # logging.info('optim : [{}], batch_size = {}, lr = {}, weight_decay= {}, momentum = {}'.format( \
         #                 args.optim, args.batch_size,
         #                 args.lr, args.weight_decay, args.momentum) )
-
-
-
-
 
 
     def _state_dict(self):
