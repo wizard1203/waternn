@@ -22,7 +22,7 @@ class MyModels:
         return waternets.WaterDenseNet_in4_out58(growth_rate=opt.growth_rate, num_init_features=opt.num_init_features, activation=opt.activation)
 
     def watercnndsnetf_in4_out58(opt):
-        return waternets.WaterCNNDenseNet_in4_out58(growth_rate=opt.growth_rate, num_init_features=1)
+        return waternets.WaterCNNDenseNet_in4_out58(growth_rate=opt.growth_rate, num_init_features=opt.num_init_features)
 
     def waternetsmallfl(opt):
         return waternets.WaterNetSmallFL()

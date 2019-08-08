@@ -327,18 +327,18 @@ class WaterDenseNetFinal(nn.Module):
 
 class WaterCNNDenseNet_in4_out58(nn.Module):
 
-    def __init__(self, growth_rate=128, block_config=(8, 16, 24, 16),
-                    num_init_features=1, bn_size=4, drop_rate=0.5, num_classes=58):
+    def __init__(self, growth_rate=32, block_config=(6, 12, 24, 16),
+                    num_init_features=128, bn_size=4, drop_rate=0.5, num_classes=58):
         
         super(WaterCNNDenseNet_in4_out58, self).__init__()
         
         # first conv
-        # self.features = nn.Sequential(OrderedDict([
-        #     ('conv0', nn.Conv2d(3, num_init_features, kernel_size=7, stride=2, padding=3, bias=False)),
-        #     ('norm0', nn.BatchNorm2d(num_init_features)),
-        #     ('relu0', nn.ReLU(inplace=True)),
-        #     ('pool0', nn.MaxPool2d(kernel_size=3, stride=2, padding=1)),
-        # ]))
+        self.features = nn.Sequential(OrderedDict([
+            ('conv0', nn.Conv2d(1, num_init_features, kernel_size=7, stride=2, padding=3, bias=False)),
+            ('norm0', nn.BatchNorm2d(num_init_features)),
+            ('relu0', nn.ReLU(inplace=True)),
+            ('pool0', nn.MaxPool2d(kernel_size=3, stride=2, padding=1)),
+        ]))
         # self.activation = activation
         self.features = nn.Sequential()
         # every denseblock
