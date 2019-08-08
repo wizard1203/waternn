@@ -199,13 +199,13 @@ class _DenseBlock(nn.Sequential):
             self.add_module('denselayer%d' % (i + 1), layer)
 
 class _CNNDenseBlock(nn.Sequential):
-    def __init__(self, num_layers, num_input_features, bn_size, growth_rate, drop_rate, activation='relu'):
+    def __init__(self, num_layers, num_input_features, bn_size, growth_rate, drop_rate):
         """
         num_layers: number of dense layers in every block
         """
         super(_CNNDenseBlock, self).__init__()
         for i in range(num_layers):
-            layer = _DenseCNNLayer(num_input_features + i * growth_rate, growth_rate, bn_size, drop_rate, activation=activation)
+            layer = _DenseCNNLayer(num_input_features + i * growth_rate, growth_rate, bn_size, drop_rate)
             self.add_module('denselayer%d' % (i + 1), layer)
 
 # _Transition, half the number of feature maps
@@ -328,7 +328,7 @@ class WaterDenseNetFinal(nn.Module):
 class WaterCNNDenseNet_in4_out58(nn.Module):
 
     def __init__(self, growth_rate=128, block_config=(8, 16, 24, 16),
-                    num_init_features=1, bn_size=4, drop_rate=0.5, num_classes=58, activation='relu'):
+                    num_init_features=1, bn_size=4, drop_rate=0.5, num_classes=58):
         
         super(WaterCNNDenseNet_in4_out58, self).__init__()
         
@@ -339,17 +339,17 @@ class WaterCNNDenseNet_in4_out58(nn.Module):
         #     ('relu0', nn.ReLU(inplace=True)),
         #     ('pool0', nn.MaxPool2d(kernel_size=3, stride=2, padding=1)),
         # ]))
-        self.activation = activation
+        # self.activation = activation
         self.features = nn.Sequential()
         # every denseblock
         num_features = num_init_features
         for i, num_layers in enumerate(block_config):
             block = _CNNDenseBlock(num_layers=num_layers, num_input_features=num_features,
-                                bn_size=bn_size, growth_rate=growth_rate, drop_rate=drop_rate, activation=activation)
+                                bn_size=bn_size, growth_rate=growth_rate, drop_rate=drop_rate)
             self.features.add_module('denseblock%d' % (i + 1), block)
             num_features = num_features + num_layers * growth_rate
             if i != len(block_config) - 1:
-                trans = _CNNTransition(num_input_features=num_features, num_output_features=num_features // 2, activation=activation)
+                trans = _CNNTransition(num_input_features=num_features, num_output_features=num_features // 2)
                 self.features.add_module('transition%d' % (i + 1), trans)
                 num_features = num_features // 2
 
@@ -363,10 +363,10 @@ class WaterCNNDenseNet_in4_out58(nn.Module):
         # x = x.view(-1, 1536)
         # x = x.view(-1, 1, 96, 16)
         features = self.features(x)
-        if self.activation=='relu':
-            out = F.relu(features, inplace=True)
-        elif self.activation=='sigmoid':
-            out = F.sigmoid(features)
+        # if self.activation=='relu':
+        out = F.relu(features, inplace=True)
+        # elif self.activation=='sigmoid':
+        #     out = F.sigmoid(features)
         out = F.adaptive_avg_pool2d(out, (1, 1)).view(features.size(0), -1)
         out = self.classifier(out)
         return out
