@@ -198,6 +198,16 @@ class _DenseBlock(nn.Sequential):
             layer = _DenseLayer(num_input_features + i * growth_rate, growth_rate, bn_size, drop_rate, activation=activation)
             self.add_module('denselayer%d' % (i + 1), layer)
 
+class _CNNDenseBlock(nn.Sequential):
+    def __init__(self, num_layers, num_input_features, bn_size, growth_rate, drop_rate, activation='relu'):
+        """
+        num_layers: number of dense layers in every block
+        """
+        super(_CNNDenseBlock, self).__init__()
+        for i in range(num_layers):
+            layer = _DenseCNNLayer(num_input_features + i * growth_rate, growth_rate, bn_size, drop_rate, activation=activation)
+            self.add_module('denselayer%d' % (i + 1), layer)
+
 # _Transition, half the number of feature maps
 class _Transition(nn.Sequential):
     def __init__(self, num_input_features, num_output_features, activation='relu'):
@@ -334,12 +344,12 @@ class WaterCNNDenseNet_in4_out58(nn.Module):
         # every denseblock
         num_features = num_init_features
         for i, num_layers in enumerate(block_config):
-            block = _DenseBlock(num_layers=num_layers, num_input_features=num_features,
+            block = _CNNDenseBlock(num_layers=num_layers, num_input_features=num_features,
                                 bn_size=bn_size, growth_rate=growth_rate, drop_rate=drop_rate, activation=activation)
             self.features.add_module('denseblock%d' % (i + 1), block)
             num_features = num_features + num_layers * growth_rate
             if i != len(block_config) - 1:
-                trans = _Transition(num_input_features=num_features, num_output_features=num_features // 2, activation=activation)
+                trans = _CNNTransition(num_input_features=num_features, num_output_features=num_features // 2, activation=activation)
                 self.features.add_module('transition%d' % (i + 1), trans)
                 num_features = num_features // 2
 
