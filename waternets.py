@@ -371,6 +371,7 @@ class WaterCNNDenseNet_in4_out58(nn.Module):
         out = F.adaptive_avg_pool2d(out, (1, 1)).view(features.size(0), -1)
         # out = out.view(-1, 6)
         out = self.classifier(out)
+        out = F.log_softmax(out, dim=1)
         return out
 
 class WaterDenseNet_in4_out58(nn.Module):
