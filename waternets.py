@@ -169,13 +169,13 @@ class _DenseCNNLayer(nn.Sequential):
         drop_rate:
         """
         super(_DenseCNNLayer, self).__init__()
-        self.add_module('norm1', nn.BatchNorm1d(num_input_features)),
+        self.add_module('norm1', nn.BatchNorm2d(num_input_features)),
         self.add_module('relu1', nn.ReLU(inplace=True)),
         # self.add_module('conv1', nn.Conv2d(num_input_features, bn_size *
         #                 growth_rate, kernel_size=1, stride=1, bias=False)),
         self.add_module('conv1', nn.Conv2d(num_input_features, bn_size * growth_rate, kernel_size=1, stride=1,
                             bias=False)),
-        self.add_module('norm2', nn.BatchNorm1d(bn_size * growth_rate)),
+        self.add_module('norm2', nn.BatchNorm2d(bn_size * growth_rate)),
         self.add_module('relu2', nn.ReLU(inplace=True)),
         self.add_module('conv2', nn.Conv2d(bn_size * growth_rate, growth_rate, kernel_size=3, stride=1, padding=1,
                             bias=False)),
@@ -233,7 +233,7 @@ class _CNNTransition(nn.Sequential):
             num_output_features:the number of output feature maps, i.e. num_input_features/2
         """
         super(_CNNTransition, self).__init__()
-        self.add_module('norm', nn.BatchNorm1d(num_input_features))
+        self.add_module('norm', nn.BatchNorm2d(num_input_features))
         self.add_module('relu', nn.ReLU(inplace=True))
         self.add_module('conv', nn.Conv2d(num_input_features, num_output_features,
                                           kernel_size=1, stride=1, bias=False))
@@ -354,14 +354,14 @@ class WaterCNNDenseNet_in4_out58(nn.Module):
                 num_features = num_features // 2
 
         #  batch norm
-        self.features.add_module('norm5', nn.BatchNorm1d(num_features))
+        self.features.add_module('norm5', nn.BatchNorm2d(num_features))
 
         # classifier
         self.classifier = nn.Linear(num_features, num_classes)
 
     def forward(self, x):
         # x = x.view(-1, 1536)
-        x = x.view(-1, 96, 16)
+        x = x.view(-1, 1, 96, 16)
         features = self.features(x)
         # if self.activation=='relu':
         out = F.relu(features, inplace=True)
