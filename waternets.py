@@ -335,10 +335,10 @@ class WaterCNNDenseNet_in4_out58(nn.Module):
         
         # first conv
         self.features = nn.Sequential(OrderedDict([
-            ('conv0', nn.Conv2d(1, num_init_features, kernel_size=7, stride=2, padding=3, bias=False)),
+            ('conv0', nn.Conv2d(1, num_init_features, kernel_size=3, stride=1, padding=1, bias=False)),
             ('norm0', nn.BatchNorm2d(num_init_features)),
             ('relu0', nn.ReLU(inplace=True)),
-            ('pool0', nn.MaxPool2d(kernel_size=3, stride=2, padding=1)),
+            ('pool0', nn.MaxPool2d(kernel_size=3, stride=1, padding=1)),
         ]))
         # self.activation = activation
         # self.features = nn.Sequential()
@@ -368,7 +368,8 @@ class WaterCNNDenseNet_in4_out58(nn.Module):
         out = F.relu(features, inplace=True)
         # elif self.activation=='sigmoid':
         #     out = F.sigmoid(features)
-        out = F.adaptive_avg_pool2d(out, (1, 1)).view(features.size(0), -1)
+        # out = F.adaptive_avg_pool2d(out, (1, 1)).view(features.size(0), -1)
+        out = out.view(-1, 6)
         out = self.classifier(out)
         return out
 
