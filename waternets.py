@@ -341,7 +341,7 @@ class WaterCNNDenseNet_in4_out58(nn.Module):
             ('pool0', nn.MaxPool2d(kernel_size=3, stride=2, padding=1)),
         ]))
         # self.activation = activation
-        self.features = nn.Sequential()
+        # self.features = nn.Sequential()
         # every denseblock
         num_features = num_init_features
         for i, num_layers in enumerate(block_config):
