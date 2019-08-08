@@ -48,9 +48,9 @@ class WaterNet(nn.Module):
         return self.optimizer 
 
 
-class WaterNetSmallFC(nn.Module):
+class WaterNetSmallFL(nn.Module):
     def __init__(self):
-        super(WaterNetSmallFC, self).__init__()
+        super(WaterNetSmallFL, self).__init__()
         self.fc1 = nn.Linear(1536, 500)
         self.fc2 = nn.Linear(500, 150)
         self.fc3 = nn.Linear(150, 58)
@@ -318,7 +318,7 @@ class WaterDenseNetFinal(nn.Module):
 class WaterCNNDenseNet_in4_out58(nn.Module):
 
     def __init__(self, growth_rate=128, block_config=(8, 16, 24, 16),
-                    num_init_features=1536, bn_size=4, drop_rate=0.5, num_classes=58, activation='relu'):
+                    num_init_features=1, bn_size=4, drop_rate=0.5, num_classes=58, activation='relu'):
         
         super(WaterCNNDenseNet_in4_out58, self).__init__()
         
@@ -375,6 +375,7 @@ class WaterDenseNet_in4_out58(nn.Module):
         #     ('relu0', nn.ReLU(inplace=True)),
         #     ('pool0', nn.MaxPool2d(kernel_size=3, stride=2, padding=1)),
         # ]))
+        self.activation = activation
         self.features = nn.Sequential()
         # every denseblock
         num_features = num_init_features
