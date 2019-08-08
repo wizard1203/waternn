@@ -259,7 +259,7 @@ def train(train_loader, trainer, epoch):
             lossesnum = losses.val
             print('====iter *{}==== * * *   losses.val :{} Update   ========\n'.format(ii, lossesnum))
             # best_path = trainer.save(better=True)
-            print("====epoch[{}]--- iter[{}] ** save params *******===".format(epoch, ii))
+            # print("====epoch[{}]--- iter[{}] ** save params *******===".format(epoch, ii))
             
         # if best_acc1 < top1.val:
         #     best_acc1 = top1.val
